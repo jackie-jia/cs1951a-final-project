@@ -1,7 +1,5 @@
 ''' This file retrieves one year of hour to hour Bitcoin and Dogecoin data from the CryptoCompare API '''
-
 import requests
-import pandas as pd
 import json
 
 # Key ready to append to CryptoCompare link
@@ -11,7 +9,7 @@ API_key = '&api_key=b7c3016be1c1ed1846f62faf8c67b93b05ef0ec4122a489cda37945114a3
 Due to the limit of 2000 hours of historical data per request, the year is separated into five intervals. The toTs
 URL parameter sets the endpoint of the interval request, expressed by a UNIX Timestamp. The conversion from dates to
 UNIX timestamps were made using this website: https://www.epochconverter.com. The data is from 12:00 AM on March 1st 
-2021 to 12:00 AM on March 1st 2022.
+2021 to 12:00 AM on March 1st 2022 inclusive for UTC-05:00 (EST).
 '''
 
 # Links for BTC (Bitcoin) historical data
