@@ -6,37 +6,42 @@
 
 We got the historical data for 6 coins: bitcoin, ethereum, solana, dogecoin, shiba inu, and sushi. The data for all the coins is combined into a single json file with the following attributes:
 
-- time
+- **time**
 - **btc_high**: 
 - **btc_low**
 - **btc_open**
 - **btc_volumefrom**
 - **btc_volumeto**
 - **btc_close**
+
 - **eth_high**
 - **eth_low**
 - **eth_open**
 - **eth_volumefrom**
 - **eth_volumeto**
 - **eth_close**
+
 - **sol_high**
 - **sol_low**
 - **sol_open**
 - **sol_volumefrom**
 - **sol_volumeto**
 - **sol_close**
+
 - **doge_high**
 - **doge_low**
 - **doge_open**
 - **doge_volumefrom**
 - **doge_volumeto**
 - **doge_close**
+
 - **shib_high**
 - **shib_low**
 - **shib_open**
 - **shib_volumefrom**
 - **shib_volumeto**
 - **shib_close**
+
 - **sushi_high**
 - **sushi_low**
 - **sushi_open**
