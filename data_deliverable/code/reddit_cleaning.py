@@ -6,12 +6,12 @@ ROOT_DIR = os.path.dirname(os.path.abspath((__file__)))
 
 '''POST DATA'''
 # Reddit post data filepaths
-BTC_posts_path = '/../data/reddit/CryptoMoonShots/bitcoin/posts.json'
-ETH_posts_path = '/../data/reddit/CryptoMoonShots/ethereum/posts.json'
-SOL_posts_path = '/../data/reddit/CryptoMoonShots/solana/posts.json'
-DOGE_posts_path = '/../data/reddit/CryptoMoonShots/dogecoin/posts.json'
-SHIB_posts_path = '/../data/reddit/CryptoMoonShots/shiba_inu/posts.json'
-SUSHI_posts_path = '/../data/reddit/CryptoMoonShots/sushi/posts.json'
+BTC_posts_path = '/../data/reddit/raw-CryptoMoonShots/bitcoin/posts.json'
+ETH_posts_path = '/../data/reddit/raw-CryptoMoonShots/ethereum/posts.json'
+SOL_posts_path = '/../data/reddit/raw-CryptoMoonShots/solana/posts.json'
+DOGE_posts_path = '/../data/reddit/raw-CryptoMoonShots/dogecoin/posts.json'
+SHIB_posts_path = '/../data/reddit/raw-CryptoMoonShots/shiba_inu/posts.json'
+SUSHI_posts_path = '/../data/reddit/raw-CryptoMoonShots/sushi/posts.json'
 
 # Proper coin post data
 btc_posts = pd.read_json(ROOT_DIR + BTC_posts_path)
@@ -39,12 +39,12 @@ meme_posts_df = meme_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplic
 
 '''COMMENT DATA'''
 # Reddit comment data filepaths
-BTC_comments_path = '/../data/reddit/CryptoMoonShots/bitcoin/comments.json'
-ETH_comments_path = '/../data/reddit/CryptoMoonShots/ethereum/comments.json'
-SOL_comments_path = '/../data/reddit/CryptoMoonShots/solana/comments.json'
-DOGE_comments_path = '/../data/reddit/CryptoMoonShots/dogecoin/comments.json'
-SHIB_comments_path = '/../data/reddit/CryptoMoonShots/shiba_inu/comments.json'
-SUSHI_comments_path = '/../data/reddit/CryptoMoonShots/sushi/comments.json'
+BTC_comments_path = '/../data/reddit/raw-CryptoMoonShots/bitcoin/comments.json'
+ETH_comments_path = '/../data/reddit/raw-CryptoMoonShots/ethereum/comments.json'
+SOL_comments_path = '/../data/reddit/raw-CryptoMoonShots/solana/comments.json'
+DOGE_comments_path = '/../data/reddit/raw-CryptoMoonShots/dogecoin/comments.json'
+SHIB_comments_path = '/../data/reddit/raw-CryptoMoonShots/shiba_inu/comments.json'
+SUSHI_comments_path = '/../data/reddit/raw-CryptoMoonShots/sushi/comments.json'
 
 # Proper coin comment data
 btc_comments = pd.read_json(ROOT_DIR + BTC_comments_path)
@@ -81,8 +81,8 @@ meme_posts_df.to_csv(MEME_POSTS_PATH, index=False)
 meme_comments_df.to_csv(MEME_COMMENTS_PATH, index=False)
 
 # Store sample data
-SAMPLE_POSTS_PATH = ROOT_DIR + "/../data/sample/sample_posts.csv"
-SAMPLE_COMMENTS_PATH = ROOT_DIR + "/../data/sample/sample_comments.csv"
+SAMPLE_POSTS_PATH = ROOT_DIR + "/../data/reddit/sample/sample_posts.csv"
+SAMPLE_COMMENTS_PATH = ROOT_DIR + "/../data/reddit/sample/sample_comments.csv"
 
 proper_posts_df.head(100).to_csv(SAMPLE_POSTS_PATH)
 meme_comments_df.head(100).to_csv(SAMPLE_COMMENTS_PATH)
