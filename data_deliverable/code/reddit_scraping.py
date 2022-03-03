@@ -1,9 +1,5 @@
 import praw
-from praw.models import MoreComments
-from psaw import PushshiftAPI
-import datetime as dt
 import pandas as pd
-import matplotlib.pyplot as plt
 
 def scrape_subreddit(subreddit_name, keywords, coin_name):
 
