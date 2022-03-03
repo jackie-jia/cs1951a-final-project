@@ -8,6 +8,10 @@ This is the data deliverable's master directory! Please use the following shortc
 - [Full Reddit Data](data/reddit/cleaned)
 - [Full Coins Data](data/cryptocurrencies/cleaned)
 - [Sample Data](data/sample)
+  - [Proper Posts Reddit Sample](data/sample/sample_posts.csv)
+  - [Meme Comments Reddit Sample](data/sample/sample_comments.csv)
+  - [Proper Coin Sample](data/sample/proper_coin_sample.csv)
+  - [Meme Coin Sample](data/sample/meme_coin_sample.csv)
 
 ### Reports ###
 - [Tech Report](reports/tech_report/)
