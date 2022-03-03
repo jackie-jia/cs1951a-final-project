@@ -71,10 +71,10 @@ meme_comments_df = meme_comments_df.drop_duplicates(subset=['id', 'coin']).drop_
 
 
 # Store final dataframe as CSVs
-PROPER_POSTS_PATH = ROOT_DIR + "/../data/reddit_cleaned/proper_posts.csv"
-PROPER_COMMENTS_PATH = ROOT_DIR + "/../data/reddit_cleaned/proper_comments.csv"
-MEME_POSTS_PATH = ROOT_DIR + "/../data/reddit_cleaned/meme_posts.csv"
-MEME_COMMENTS_PATH = ROOT_DIR + "/../data/reddit_cleaned/meme_comments.csv"
+PROPER_POSTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/proper_posts.csv"
+PROPER_COMMENTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/proper_comments.csv"
+MEME_POSTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/meme_posts.csv"
+MEME_COMMENTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/meme_comments.csv"
 
 proper_posts_df.to_csv(PROPER_POSTS_PATH, index=False)
 proper_comments_df.to_csv(PROPER_COMMENTS_PATH, index=False)
