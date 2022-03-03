@@ -7,14 +7,14 @@
 - We collected data on 6 cryptocurrencies (bitcoin, ethereum, solana, dogecoin, sushi, and shiba_inu). For each coin, we used the CryptoCompare API to get its historical data from the past year. We also scraped the r/CryptoMoonShots subreddit for posts and comments that mention each of the 6 coins. To do this, we used the Python Reddit API Wrapper (PRAW).
 
 #### **Is the source reputable?**
-- Yes
+- **Reddit**: Since we are looking at popularity and sentiment on social media, Reddit is a reputable source for our specific purposes.
+- **Crypto**: 
 
 #### **How did you generate the sample? Is it comparably small or large? Is it representative or is it likely to exhibit some kind of sampling bias?**
 - Our project will compare more established coins (bitcoin, ethereum, solano) to meme coins (dogecoin, sushi, shiba_inu) by looking at relationships between price fluctuations and the content of reddit posts/comments that mention each of these coins.
 
-
 #### **Are there any other considerations you took into account when collecting your data? This is open-ended based on your data; feel free to leave this blank. (Example: If it's user data, is it public/are they consenting to have their data used? Is the data potentially skewed in any direction?)**
-- When choosing a subreddit to get data from, we decided to focus on a more generic one that doesn't center around just one coin. We scraped all of our data for each of the coins from this one subreddit that provides a broader look into what the crypto community is discussing. 
+- When choosing a subreddit to get data from, we decided to focus on a more generic one that doesn't center around just one coin. We scraped all of our data for each of the coins from r/CryptoMoonShots, which provides a broader look into what the crypto community is discussing. 
 
 ### **How clean is the data? Does this data contain what you need in order to complete the project you proposed to do?**
  
@@ -29,7 +29,7 @@
 
 
 #### Are there missing values? Do these occur in fields that are important for your project's goals?
-- **Reddit**: No missing values
+- **Reddit**: In the selftext/body columns of our data, it may contain "[removed]" or "[deleted]" in the case that the user deleted the post/comment or it is removed by a moderator. Since we hope to use the text of the Reddit posts and comments for our analyses, the removed posts and comments are not very useful to us. Thus, we filtered these removed posts and comments out of our datasets. 
 
 
 #### Are there duplicates? Do these occur in fields that are important for your project's goals?
@@ -40,9 +40,9 @@
 - 
 
 #### Are there any data type issues (e.g. words in fields that were supposed to be numeric)? Where are these coming from? (E.g. a bug in your scraper? User input?) How will you fix them?
-- **Reddit**: no data type issues
+- **Reddit**: There are no data type issues.
 
 #### Do you need to throw any data away? What data? Why? Any reason this might affect the analyses you are able to run or the conclusions you are able to draw?
-- **Reddit**: all the data will be used.
+- **Reddit**: All of the data will be used. 
 
 ### Summarize any challenges or observations you have made since collecting your data. Then, discuss your next steps and how your data collection has impacted the type of analysis you will perform. (approximately 3-5 sentences)

@@ -102,5 +102,5 @@ meme_comments_df.to_csv(MEME_COMMENTS_PATH, index=False)
 # Store sample data
 SAMPLE_POSTS_PATH = ROOT_DIR + "/../data/sample/sample_posts.csv"
 SAMPLE_COMMENTS_PATH = ROOT_DIR + "/../data/sample/sample_comments.csv"
-proper_posts_df.head(100).to_csv(SAMPLE_POSTS_PATH)
-meme_comments_df.head(100).to_csv(SAMPLE_COMMENTS_PATH)
+proper_posts_df.head(100).to_csv(SAMPLE_POSTS_PATH, index=False)
+meme_comments_df.head(100).to_csv(SAMPLE_COMMENTS_PATH, index=False)
