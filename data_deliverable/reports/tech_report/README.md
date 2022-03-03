@@ -14,7 +14,7 @@ Our project will compare more established coins (bitcoin, ethereum, solano) to m
 
 
 ### Are there any other considerations you took into account when collecting your data? This is open-ended based on your data; feel free to leave this blank. (Example: If it's user data, is it public/are they consenting to have their data used? Is the data potentially skewed in any direction?)
-
+When choosing a subreddit to get data from, we decided to focus on a more generic one that doesn't center around just one coin. We scraped all of our data for each of the coins from this one subreddit that provides a broader look into what the crypto community is discussing. 
 
 ### How clean is the data? Does this data contain what you need in order to complete the project you proposed to do? (Each team will have to go about answering this question differently, but use the following questions as a guide. Graphs and tables are highly encouraged if they allow you to answer these questions more succinctly.)
 
