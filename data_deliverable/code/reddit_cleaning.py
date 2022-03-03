@@ -22,7 +22,7 @@ sol_posts = pd.read_json(ROOT_DIR + SOL_posts_path)
 sol_posts['coin'] = 'solana'
 
 proper_posts_df = pd.concat([btc_posts, eth_posts, sol_posts])
-proper_posts_df = proper_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['selftext', 'coin'])
+proper_posts_df = proper_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['selftext', 'coin'], ignore_index=True)
 
 # Meme coin post data
 doge_posts = pd.read_json(ROOT_DIR + DOGE_posts_path)
@@ -33,7 +33,7 @@ sushi_posts = pd.read_json(ROOT_DIR + SUSHI_posts_path)
 sushi_posts['coin'] = 'sushi'
 
 meme_posts_df = pd.concat([doge_posts, shib_posts, sushi_posts])
-meme_posts_df = meme_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['selftext', 'coin'])
+meme_posts_df = meme_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['selftext', 'coin'], ignore_index=True)
 
 
 
