@@ -54,7 +54,3 @@ def main():
     scrape_subreddit(subreddit, dogecoin, 'dogecoin')
     scrape_subreddit(subreddit, sushi, 'sushi')
     scrape_subreddit(subreddit, shiba_inu, 'shiba_inu')
-
-
-if __name__ == '__main__':
-    main()
