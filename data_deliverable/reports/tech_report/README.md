@@ -22,9 +22,9 @@
 
 - **Reddit**: This should be more than enough data.
     - Proper posts: 10344 entries 
-    - Proper comments: 41772 entries
-    - Meme posts: 8648 entries
-    - Meme comments: 31200 entries
+    - Proper comments: 41730 entries
+    - Meme posts: 8640 entries
+    - Meme comments: 31152 entries
 - **Crypto**:
 
 

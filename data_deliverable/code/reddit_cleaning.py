@@ -1,8 +1,12 @@
+
 import os
 import pandas as pd
 
 # Finds root directory of user
 ROOT_DIR = os.path.dirname(os.path.abspath((__file__)))
+def clean_text(x):
+    remove_double_space = x.replace("  ", " ")
+    return remove_double_space.replace("\n", " ")
 
 '''POST DATA'''
 # Reddit post data filepaths
@@ -22,7 +26,10 @@ sol_posts = pd.read_json(ROOT_DIR + SOL_posts_path)
 sol_posts['coin'] = 'solana'
 
 proper_posts_df = pd.concat([btc_posts, eth_posts, sol_posts])
+proper_posts_df['selftext'] = proper_posts_df['selftext'].apply(lambda x: clean_text(x))
 proper_posts_df = proper_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['selftext', 'coin'])
+proper_posts_df = proper_posts_df[proper_posts_df.selftext != "[removed]"]
+proper_posts_df = proper_posts_df[proper_posts_df.selftext != "[deleted]"]
 
 # Meme coin post data
 doge_posts = pd.read_json(ROOT_DIR + DOGE_posts_path)
@@ -33,8 +40,10 @@ sushi_posts = pd.read_json(ROOT_DIR + SUSHI_posts_path)
 sushi_posts['coin'] = 'sushi'
 
 meme_posts_df = pd.concat([doge_posts, shib_posts, sushi_posts])
+meme_posts_df['selftext'] = meme_posts_df['selftext'].apply(lambda x: clean_text(x))
 meme_posts_df = meme_posts_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['selftext', 'coin'])
-
+meme_posts_df = meme_posts_df[meme_posts_df.selftext != "[removed]"]
+meme_posts_df = meme_posts_df[meme_posts_df.selftext != "[deleted]"]
 
 
 '''COMMENT DATA'''
@@ -55,7 +64,10 @@ sol_comments = pd.read_json(ROOT_DIR + SOL_comments_path)
 sol_comments['coin'] = 'solana'
 
 proper_comments_df = pd.concat([btc_comments, eth_comments, sol_comments])
+proper_comments_df['body'] = proper_comments_df['body'].apply(lambda x: clean_text(x))
 proper_comments_df = proper_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'])
+proper_comments_df = proper_comments_df[proper_comments_df.body != "[removed]"]
+proper_comments_df = proper_comments_df[proper_comments_df.body != "[deleted]"]
 
 # Meme coin comment data
 doge_comments = pd.read_json(ROOT_DIR + DOGE_comments_path)
@@ -66,7 +78,15 @@ sushi_comments = pd.read_json(ROOT_DIR + SUSHI_comments_path)
 sushi_comments['coin'] = 'sushi'
 
 meme_comments_df = pd.concat([doge_comments, shib_comments, sushi_comments])
+meme_comments_df['body'] = meme_comments_df['body'].apply(lambda x: clean_text(x))
 meme_comments_df = meme_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'])
+meme_comments_df = meme_comments_df[meme_comments_df.body != "[removed]"]
+meme_comments_df = meme_comments_df[meme_comments_df.body != "[deleted]"]
+
+print(proper_posts_df.size)
+print(proper_comments_df.size)
+print(meme_posts_df.size)
+print(meme_comments_df.size)
 
 # Store final dataframe as CSVs
 PROPER_POSTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/proper_posts.csv"
@@ -82,6 +102,5 @@ meme_comments_df.to_csv(MEME_COMMENTS_PATH, index=False)
 # Store sample data
 SAMPLE_POSTS_PATH = ROOT_DIR + "/../data/sample/sample_posts.csv"
 SAMPLE_COMMENTS_PATH = ROOT_DIR + "/../data/sample/sample_comments.csv"
-
 proper_posts_df.head(100).to_csv(SAMPLE_POSTS_PATH)
 meme_comments_df.head(100).to_csv(SAMPLE_COMMENTS_PATH)
