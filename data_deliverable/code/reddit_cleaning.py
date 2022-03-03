@@ -55,7 +55,7 @@ sol_comments = pd.read_json(ROOT_DIR + SOL_comments_path)
 sol_comments['coin'] = 'solana'
 
 proper_comments_df = pd.concat([btc_comments, eth_comments, sol_comments])
-proper_comments_df = proper_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'])
+proper_comments_df = proper_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'], ignore_index=True)
 
 # Meme coin comment data
 doge_comments = pd.read_json(ROOT_DIR + DOGE_comments_path)
@@ -66,8 +66,7 @@ sushi_comments = pd.read_json(ROOT_DIR + SUSHI_comments_path)
 sushi_comments['coin'] = 'sushi'
 
 meme_comments_df = pd.concat([doge_comments, shib_comments, sushi_comments])
-meme_comments_df = meme_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'])
-
+meme_comments_df = meme_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'], ignore_index=True)
 
 # Store final dataframe as CSVs
 PROPER_POSTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/proper_posts.csv"

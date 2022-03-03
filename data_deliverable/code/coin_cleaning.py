@@ -117,7 +117,7 @@ if proper_coin_df.isnull().values.any():
     print("Null entry found in proper coin dataframe.")
 
 # Save final meme coin dataframe to csv file
-proper_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/proper_coin_data.csv')
+proper_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/proper_coin_data.csv', index=False)
 
 
 
@@ -230,7 +230,7 @@ if meme_coin_df.isnull().values.any():
     print("Null entry found in meme coin dataframe.")
 
 # Save final meme coin dataframe to csv file
-meme_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/meme_coin_data.csv')
+meme_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/meme_coin_data.csv', index=False)
 
 ''' Samples created here for Data Deliverable '''
 proper_coin_df.head(100).to_csv(ROOT_DIR + '/../data/cryptocurrencies/sample/proper_coin_sample.csv')
