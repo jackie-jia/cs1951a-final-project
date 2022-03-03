@@ -1,15 +1,16 @@
 # Tech Report
-This is where you can type out your tech report.
 
 ### Where is the data from?
-
+The cryptocurrency historical data is from the CryptoCompare. For social media, we chose to focus on crypto-related subreddits, in particular r/CryptoMoonShots.
 
 ### How did you collect your data?
-
+We collected data on 6 cryptocurrencies (bitcoin, ethereum, solana, dogecoin, sushi, and shiba_inu). For each coin, we used the CryptoCompare API to get its historical data from the past year. We also scraped the r/CryptoMoonShots subreddit for posts and comments that mention each of the 6 coins. To do this, we used the Python Reddit API Wrapper (PRAW).
 
 ### Is the source reputable?
+Yes
 
 ### How did you generate the sample? Is it comparably small or large? Is it representative or is it likely to exhibit some kind of sampling bias?
+Our project will compare more established coins (bitcoin, ethereum, solano) to meme coins (dogecoin, sushi, shiba_inu) by looking at relationships between price fluctuations and the content of reddit posts/comments that mention each of these coins.
 
 
 ### Are there any other considerations you took into account when collecting your data? This is open-ended based on your data; feel free to leave this blank. (Example: If it's user data, is it public/are they consenting to have their data used? Is the data potentially skewed in any direction?)
