@@ -7,8 +7,7 @@ This is the data deliverable's master directory! Please use the following shortc
 ### Links to Data ### 
 - [Full Reddit Data](data/reddit/cleaned)
 - [Full Coins Data](data/cryptocurrencies/cleaned)
-- [Reddit Sample Data](data/reddit/sample)
-- [Coin Sample Data](data/reddit/sample)
+- [Sample Data](data/sample)
 
 ### Reports ###
 - [Tech Report](reports/tech_report/)

@@ -29,31 +29,31 @@ BTC_DecToMar = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsy
 # REQUEST 1: March 1, 2021 - April 1, 2021 (1:00:00 PM)
 r = requests.get(BTC_MarToApr + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/BTC(1)_MarToApr.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/BTC(1)_MarToApr.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 2: Thursday, April 1, 2021 (1:00:00 PM) - Wednesday, June 23, 2021 (10:00:00 PM)
 r = requests.get(BTC_AprToJun + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/BTC(2)_AprToJun.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/BTC(2)_AprToJun.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 3: Wednesday, June 23, 2021 (3:00:00 PM) - Wednesday, September 15, 2021 (7:00:00 AM)
 r = requests.get(BTC_JunToSep + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/BTC(3)_JunToSep.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/BTC(3)_JunToSep.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 4: Wednesday, September 15, 2021 (7:00:00 AM) - Tuesday, December 7, 2021 (3:00:00 PM)
 r = requests.get(BTC_SepToDec + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/BTC(4)_SepToDec.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/BTC(4)_SepToDec.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 5: Tuesday December 7 2021 (3:00:00 PM) - Tuesday March 1 2022 (12:00:00 AM)
 r = requests.get(BTC_DecToMar + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/BTC(5)_DecToMar.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/BTC(5)_DecToMar.json','w') as json_file:
     json.dump(r,json_file)
 
 
@@ -69,31 +69,31 @@ ETH_DecToMar = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=ETH&tsy
 # REQUEST 1: March 1, 2021 - April 1, 2021 (1:00:00 PM)
 r = requests.get(ETH_MarToApr + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/ETH(1)_MarToApr.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/ETH(1)_MarToApr.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 2: Thursday, April 1, 2021 (1:00:00 PM) - Wednesday, June 23, 2021 (10:00:00 PM)
 r = requests.get(ETH_AprToJun + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/ETH(2)_AprToJun.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/ETH(2)_AprToJun.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 3: Wednesday, June 23, 2021 (3:00:00 PM) - Wednesday, September 15, 2021 (7:00:00 AM)
 r = requests.get(ETH_JunToSep + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/ETH(3)_JunToSep.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/ETH(3)_JunToSep.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 4: Wednesday, September 15, 2021 (7:00:00 AM) - Tuesday, December 7, 2021 (3:00:00 PM)
 r = requests.get(ETH_SepToDec + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/ETH(4)_SepToDec.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/ETH(4)_SepToDec.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 5: Tuesday December 7 2021 (3:00:00 PM) - Tuesday March 1 2022 (12:00:00 AM)
 r = requests.get(ETH_DecToMar + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/ETH(5)_DecToMar.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/ETH(5)_DecToMar.json','w') as json_file:
     json.dump(r,json_file)
 
 
@@ -109,31 +109,31 @@ SOL_DecToMar = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=SOL&tsy
 # REQUEST 1: March 1, 2021 - April 1, 2021 (1:00:00 PM)
 r = requests.get(SOL_MarToApr + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SOL(1)_MarToApr.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SOL(1)_MarToApr.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 2: Thursday, April 1, 2021 (1:00:00 PM) - Wednesday, June 23, 2021 (10:00:00 PM)
 r = requests.get(SOL_AprToJun + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SOL(2)_AprToJun.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SOL(2)_AprToJun.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 3: Wednesday, June 23, 2021 (3:00:00 PM) - Wednesday, September 15, 2021 (7:00:00 AM)
 r = requests.get(SOL_JunToSep + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SOL(3)_JunToSep.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SOL(3)_JunToSep.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 4: Wednesday, September 15, 2021 (7:00:00 AM) - Tuesday, December 7, 2021 (3:00:00 PM)
 r = requests.get(SOL_SepToDec + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SOL(4)_SepToDec.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SOL(4)_SepToDec.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 5: Tuesday December 7 2021 (3:00:00 PM) - Tuesday March 1 2022 (12:00:00 AM)
 r = requests.get(SOL_DecToMar + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SOL(5)_DecToMar.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SOL(5)_DecToMar.json','w') as json_file:
     json.dump(r,json_file)
 
 
@@ -149,31 +149,31 @@ DOGE_DecToMar = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=DOGE&t
 # REQUEST 1: March 1, 2021 - April 1, 2021 (1:00:00 PM)
 r = requests.get(DOGE_MarToApr + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/DOGE(1)_MarToApr.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/DOGE(1)_MarToApr.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 2: Thursday, April 1, 2021 (1:00:00 PM) - Wednesday, June 23, 2021 (10:00:00 PM)
 r = requests.get(DOGE_AprToJun + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/DOGE(2)_AprToJun.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/DOGE(2)_AprToJun.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 3: Wednesday, June 23, 2021 (3:00:00 PM) - Wednesday, September 15, 2021 (7:00:00 AM)
 r = requests.get(DOGE_JunToSep + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/DOGE(3)_JunToSep.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/DOGE(3)_JunToSep.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 4: Wednesday, September 15, 2021 (7:00:00 AM) - Tuesday, December 7, 2021 (3:00:00 PM)
 r = requests.get(DOGE_SepToDec + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/DOGE(4)_SepToDec.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/DOGE(4)_SepToDec.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 5: Tuesday December 7 2021 (3:00:00 PM) - Tuesday March 1 2022 (12:00:00 AM)
 r = requests.get(DOGE_DecToMar + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/DOGE(5)_DecToMar.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/DOGE(5)_DecToMar.json','w') as json_file:
     json.dump(r,json_file)
 
 
@@ -189,31 +189,31 @@ SHIB_DecToMar = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=SHIB&t
 # REQUEST 1: March 1, 2021 - April 1, 2021 (1:00:00 PM)
 r = requests.get(SHIB_MarToApr + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SHIB(1)_MarToApr.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SHIB(1)_MarToApr.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 2: Thursday, April 1, 2021 (1:00:00 PM) - Wednesday, June 23, 2021 (10:00:00 PM)
 r = requests.get(SHIB_AprToJun + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SHIB(2)_AprToJun.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SHIB(2)_AprToJun.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 3: Wednesday, June 23, 2021 (3:00:00 PM) - Wednesday, September 15, 2021 (7:00:00 AM)
 r = requests.get(SHIB_JunToSep + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SHIB(3)_JunToSep.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SHIB(3)_JunToSep.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 4: Wednesday, September 15, 2021 (7:00:00 AM) - Tuesday, December 7, 2021 (3:00:00 PM)
 r = requests.get(SHIB_SepToDec + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SHIB(4)_SepToDec.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SHIB(4)_SepToDec.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 5: Tuesday December 7 2021 (3:00:00 PM) - Tuesday March 1 2022 (12:00:00 AM)
 r = requests.get(SHIB_DecToMar + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SHIB(5)_DecToMar.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SHIB(5)_DecToMar.json','w') as json_file:
     json.dump(r,json_file)
 
 
@@ -229,29 +229,29 @@ SUSHI_DecToMar = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=SUSHI
 # REQUEST 1: March 1, 2021 - April 1, 2021 (1:00:00 PM)
 r = requests.get(SUSHI_MarToApr + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SUSHI(1)_MarToApr.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SUSHI(1)_MarToApr.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 2: Thursday, April 1, 2021 (1:00:00 PM) - Wednesday, June 23, 2021 (10:00:00 PM)
 r = requests.get(SUSHI_AprToJun + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SUSHI(2)_AprToJun.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SUSHI(2)_AprToJun.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 3: Wednesday, June 23, 2021 (3:00:00 PM) - Wednesday, September 15, 2021 (7:00:00 AM)
 r = requests.get(SUSHI_JunToSep + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SUSHI(3)_JunToSep.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SUSHI(3)_JunToSep.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 4: Wednesday, September 15, 2021 (7:00:00 AM) - Tuesday, December 7, 2021 (3:00:00 PM)
 r = requests.get(SUSHI_SepToDec + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SUSHI(4)_SepToDec.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SUSHI(4)_SepToDec.json','w') as json_file:
     json.dump(r,json_file)
 
 # REQUEST 5: Tuesday December 7 2021 (3:00:00 PM) - Tuesday March 1 2022 (12:00:00 AM)
 r = requests.get(SUSHI_DecToMar + API_key)
 r = r.json()
-with open(ROOT_DIR + '/../data/raw/SUSHI(5)_DecToMar.json','w') as json_file:
+with open(ROOT_DIR + '/../data/coin/raw/SUSHI(5)_DecToMar.json','w') as json_file:
     json.dump(r,json_file)

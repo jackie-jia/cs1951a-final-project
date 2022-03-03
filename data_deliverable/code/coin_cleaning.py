@@ -9,11 +9,11 @@ ROOT_DIR = os.path.dirname(os.path.abspath((__file__)))
 
 ''' Bitcoin '''
 # All five raw BTC data filepaths
-BTC_MarToApr = '/../data/cryptocurrencies/raw/BTC(1)_MarToApr.json'
-BTC_AprToJun = '/../data/cryptocurrencies/raw/BTC(2)_AprToJun.json'
-BTC_JunToSep = '/../data/cryptocurrencies/raw/BTC(3)_JunToSep.json'
-BTC_SepToDec = '/../data/cryptocurrencies/raw/BTC(4)_SepToDec.json'
-BTC_DecToMar = '/../data/cryptocurrencies/raw/BTC(5)_DecToMar.json'
+BTC_MarToApr = '/../data/coin/raw/BTC(1)_MarToApr.json'
+BTC_AprToJun = '/../data/coin/raw/BTC(2)_AprToJun.json'
+BTC_JunToSep = '/../data/coin/raw/BTC(3)_JunToSep.json'
+BTC_SepToDec = '/../data/coin/raw/BTC(4)_SepToDec.json'
+BTC_DecToMar = '/../data/coin/raw/BTC(5)_DecToMar.json'
 
 # BTC records collected and merged
 file = open(ROOT_DIR + BTC_MarToApr, 'r')
@@ -38,11 +38,11 @@ btc_df = pd.DataFrame.from_records(btc_data, columns=['time', 'high', 'low', 'op
 
 ''' Ethereum '''
 # All five raw ETH data filepaths
-ETH_MarToApr = '/../data/cryptocurrencies/raw/ETH(1)_MarToApr.json'
-ETH_AprToJun = '/../data/cryptocurrencies/raw/ETH(2)_AprToJun.json'
-ETH_JunToSep = '/../data/cryptocurrencies/raw/ETH(3)_JunToSep.json'
-ETH_SepToDec = '/../data/cryptocurrencies/raw/ETH(4)_SepToDec.json'
-ETH_DecToMar = '/../data/cryptocurrencies/raw/ETH(5)_DecToMar.json'
+ETH_MarToApr = '/../data/coin/raw/ETH(1)_MarToApr.json'
+ETH_AprToJun = '/../data/coin/raw/ETH(2)_AprToJun.json'
+ETH_JunToSep = '/../data/coin/raw/ETH(3)_JunToSep.json'
+ETH_SepToDec = '/../data/coin/raw/ETH(4)_SepToDec.json'
+ETH_DecToMar = '/../data/coin/raw/ETH(5)_DecToMar.json'
 
 # ETH records collected and merged
 file = open(ROOT_DIR + ETH_MarToApr, 'r')
@@ -66,11 +66,11 @@ eth_df = pd.DataFrame.from_records(eth_data, columns=['high', 'low', 'open', 'vo
 
 ''' Solana '''
 # All five raw SOL data filepaths
-SOL_MarToApr = '/../data/cryptocurrencies/raw/SOL(1)_MarToApr.json'
-SOL_AprToJun = '/../data/cryptocurrencies/raw/SOL(2)_AprToJun.json'
-SOL_JunToSep = '/../data/cryptocurrencies/raw/SOL(3)_JunToSep.json'
-SOL_SepToDec = '/../data/cryptocurrencies/raw/SOL(4)_SepToDec.json'
-SOL_DecToMar = '/../data/cryptocurrencies/raw/SOL(5)_DecToMar.json'
+SOL_MarToApr = '/../data/coin/raw/SOL(1)_MarToApr.json'
+SOL_AprToJun = '/../data/coin/raw/SOL(2)_AprToJun.json'
+SOL_JunToSep = '/../data/coin/raw/SOL(3)_JunToSep.json'
+SOL_SepToDec = '/../data/coin/raw/SOL(4)_SepToDec.json'
+SOL_DecToMar = '/../data/coin/raw/SOL(5)_DecToMar.json'
 
 # SOL records collected and merged
 file = open(ROOT_DIR + SOL_MarToApr, 'r')
@@ -117,7 +117,7 @@ if proper_coin_df.isnull().values.any():
     print("Null entry found in proper coin dataframe.")
 
 # Save final meme coin dataframe to csv file
-proper_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/proper_coin_data.csv', index=False)
+proper_coin_df.to_csv(ROOT_DIR + '/../data/coin/cleaned/proper_coin_data.csv', index=False)
 
 
 
@@ -125,11 +125,11 @@ proper_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/proper_coin_
 
 ''' Dogecoin '''
 # All five raw DOGE data filepaths are defined here
-DOGE_MarToApr = '/../data/cryptocurrencies/raw/DOGE(1)_MarToApr.json'
-DOGE_AprToJun = '/../data/cryptocurrencies/raw/DOGE(2)_AprToJun.json'
-DOGE_JunToSep = '/../data/cryptocurrencies/raw/DOGE(3)_JunToSep.json'
-DOGE_SepToDec = '/../data/cryptocurrencies/raw/DOGE(4)_SepToDec.json'
-DOGE_DecToMar = '/../data/cryptocurrencies/raw/DOGE(5)_DecToMar.json'
+DOGE_MarToApr = '/../data/coin/raw/DOGE(1)_MarToApr.json'
+DOGE_AprToJun = '/../data/coin/raw/DOGE(2)_AprToJun.json'
+DOGE_JunToSep = '/../data/coin/raw/DOGE(3)_JunToSep.json'
+DOGE_SepToDec = '/../data/coin/raw/DOGE(4)_SepToDec.json'
+DOGE_DecToMar = '/../data/coin/raw/DOGE(5)_DecToMar.json'
 
 # DOGE records collected and merged
 file = open(ROOT_DIR + DOGE_MarToApr, 'r')
@@ -153,11 +153,11 @@ doge_data = doge_data_1['Data']['Data'] + doge_data_2['Data']['Data'] + doge_dat
 
 ''' Shiba Inu '''
 # All five raw SHIB data filepaths are defined here
-SHIB_MarToApr = '/../data/cryptocurrencies/raw/SHIB(1)_MarToApr.json'
-SHIB_AprToJun = '/../data/cryptocurrencies/raw/SHIB(2)_AprToJun.json'
-SHIB_JunToSep = '/../data/cryptocurrencies/raw/SHIB(3)_JunToSep.json'
-SHIB_SepToDec = '/../data/cryptocurrencies/raw/SHIB(4)_SepToDec.json'
-SHIB_DecToMar = '/../data/cryptocurrencies/raw/SHIB(5)_DecToMar.json'
+SHIB_MarToApr = '/../data/coin/raw/SHIB(1)_MarToApr.json'
+SHIB_AprToJun = '/../data/coin/raw/SHIB(2)_AprToJun.json'
+SHIB_JunToSep = '/../data/coin/raw/SHIB(3)_JunToSep.json'
+SHIB_SepToDec = '/../data/coin/raw/SHIB(4)_SepToDec.json'
+SHIB_DecToMar = '/../data/coin/raw/SHIB(5)_DecToMar.json'
 
 # SHIB records collected and merged
 file = open(ROOT_DIR + SHIB_MarToApr, 'r')
@@ -181,11 +181,11 @@ shib_data = shib_data_1['Data']['Data'] + shib_data_2['Data']['Data'] + shib_dat
 
 ''' Sushi '''
 # All five raw SUSHI data filepaths are defined here
-SUSHI_MarToApr = '/../data/cryptocurrencies/raw/SUSHI(1)_MarToApr.json'
-SUSHI_AprToJun = '/../data/cryptocurrencies/raw/SUSHI(2)_AprToJun.json'
-SUSHI_JunToSep = '/../data/cryptocurrencies/raw/SUSHI(3)_JunToSep.json'
-SUSHI_SepToDec = '/../data/cryptocurrencies/raw/SUSHI(4)_SepToDec.json'
-SUSHI_DecToMar = '/../data/cryptocurrencies/raw/SUSHI(5)_DecToMar.json'
+SUSHI_MarToApr = '/../data/coin/raw/SUSHI(1)_MarToApr.json'
+SUSHI_AprToJun = '/../data/coin/raw/SUSHI(2)_AprToJun.json'
+SUSHI_JunToSep = '/../data/coin/raw/SUSHI(3)_JunToSep.json'
+SUSHI_SepToDec = '/../data/coin/raw/SUSHI(4)_SepToDec.json'
+SUSHI_DecToMar = '/../data/coin/raw/SUSHI(5)_DecToMar.json'
 
 # SUSHI records collected and merged
 file = open(ROOT_DIR + SUSHI_MarToApr, 'r')
@@ -230,8 +230,8 @@ if meme_coin_df.isnull().values.any():
     print("Null entry found in meme coin dataframe.")
 
 # Save final meme coin dataframe to csv file
-meme_coin_df.to_csv(ROOT_DIR + '/../data/cryptocurrencies/cleaned/meme_coin_data.csv', index=False)
+meme_coin_df.to_csv(ROOT_DIR + '/../data/coin/cleaned/meme_coin_data.csv', index=False)
 
 ''' Samples created here for Data Deliverable '''
-proper_coin_df.head(100).to_csv(ROOT_DIR + '/../data/cryptocurrencies/sample/proper_coin_sample.csv')
-meme_coin_df.head(100).to_csv(ROOT_DIR + '/../data/cryptocurrencies/sample/meme_coin_sample.csv')
+proper_coin_df.head(100).to_csv(ROOT_DIR + '/../data/sample/proper_coin_sample.csv')
+meme_coin_df.head(100).to_csv(ROOT_DIR + '/../data/sample/meme_coin_sample.csv')
