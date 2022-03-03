@@ -69,7 +69,6 @@ meme_comments_df = pd.concat([doge_comments, shib_comments, sushi_comments])
 meme_comments_df = meme_comments_df.drop_duplicates(subset=['id', 'coin']).drop_duplicates(subset=['body', 'coin'])
 
 
-
 # Store final dataframe as CSVs
 PROPER_POSTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/proper_posts.csv"
 PROPER_COMMENTS_PATH = ROOT_DIR + "/../data/reddit/cleaned/proper_comments.csv"
