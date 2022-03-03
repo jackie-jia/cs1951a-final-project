@@ -4,6 +4,11 @@ This is the data deliverable's master directory! Please use the following shortc
 ### Data Spec ###
 [Data spec](data/)
 
+### Links to Data ### 
+[Full Reddit Data](data/reddit/cleaned)
+[Full Coins Data](data/coin_data.json)
+[Sample Data](data/sample/)
+
 ### Reports ###
 - [Tech Report](reports/tech_report/)
 - [Socio-historical Context and Impact Report](reports/social_impact_report)
