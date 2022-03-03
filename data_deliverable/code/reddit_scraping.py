@@ -5,7 +5,7 @@ import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def scrapeSubreddit(subreddit_name, keywords, coin_name):
+def scrape_subreddit(subreddit_name, keywords, coin_name):
 
     reddit = praw.Reddit(client_id='T9am9v3IGT4Dtj73TTzG2g', client_secret='f9C3Leopd1q5g8mKYHee99wP39fZmw', user_agent='Jacqueline Jia')
 
@@ -52,12 +52,12 @@ def main():
     shiba_inu = ['Shiba inu', 'shib', 'shb']
 
     subreddit = 'CryptoMoonShots'
-    scrapeSubreddit(subreddit, bitcoin, 'bitcoin')
-    scrapeSubreddit(subreddit, ethereum, 'ethereum')
-    scrapeSubreddit(subreddit, solana, 'solana')
-    scrapeSubreddit(subreddit, dogecoin, 'dogecoin')
-    scrapeSubreddit(subreddit, sushi, 'sushi')
-    scrapeSubreddit(subreddit, shiba_inu, 'shiba_inu')
+    scrape_subreddit(subreddit, bitcoin, 'bitcoin')
+    scrape_subreddit(subreddit, ethereum, 'ethereum')
+    scrape_subreddit(subreddit, solana, 'solana')
+    scrape_subreddit(subreddit, dogecoin, 'dogecoin')
+    scrape_subreddit(subreddit, sushi, 'sushi')
+    scrape_subreddit(subreddit, shiba_inu, 'shiba_inu')
 
 
 if __name__ == '__main__':
