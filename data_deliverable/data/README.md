@@ -8,7 +8,7 @@ We got one year of hour to hour historical data for 6 different cryptocurrencies
 
 ***Proper Coins:***
 
-The 'proper' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). The table is of dimensions (8761 x 19).
+The 'proper' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). The table is of dimensions (8761 x 16).
 
 The data for these coins has the following attributes:
 - **time**
@@ -22,7 +22,7 @@ The data for these coins has the following attributes:
   - We plan on using this attribute to find the time at which large fluctuations in price and demand took place. We then plan on linking reddit posts in a certain time interval before the time of the fluctuation to the fluctuation for text analysis purposes.
   -  This feature does not include any sensitive information.
 
-All three coins then have the following six attributes differentiated by the suffix 'SYMBOL_' in the column name:
+All three coins then have the following five attributes differentiated by the suffix 'SYMBOL_' in the column name:
 
 - **high**
   - The highest price of the coin in USD during the hour following its corresponding ***time*** attribute.
@@ -72,6 +72,7 @@ All three coins then have the following six attributes differentiated by the suf
  
 ***Meme Coins:***
 
+The 'meme' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). The table is of dimensions (8761 x 16).
 ***Further Notes:***
 
 
