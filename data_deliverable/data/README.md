@@ -8,7 +8,7 @@ We got one year of hour to hour historical data for 6 different cryptocurrencies
 
 ***Proper Coins:***
 
-The 'proper' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). 
+The 'proper' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). The table is of dimensions (8761 x 19).
 
 The data for these coins has the following attributes:
 - **time**
@@ -19,7 +19,7 @@ The data for these coins has the following attributes:
   - This attribute is an identifier, and is unique. 
   - Since this value is meant to be unique and outputted by the API, no duplicate records exist.
   - This value is required, and was checked to be complete.
-  - We plan on using this attribute to find the time at which large fluctuations in price took place. We then plan on linking posts of a certain time interval before the time of the fluctuation to the fluctuation for text analysis.
+  - We plan on using this attribute to find the time at which large fluctuations in price and demand took place. We then plan on linking reddit posts in a certain time interval before the time of the fluctuation to the fluctuation for text analysis purposes.
   -  This feature does not include any sensitive information.
 
 All three coins then have the following six attributes differentiated by the suffix 'SYMBOL_' in the column name:
@@ -27,7 +27,7 @@ All three coins then have the following six attributes differentiated by the suf
 - **high**
   - The highest price of the coin in USD during the hour following its corresponding ***time*** attribute.
   - This attribute is of the type FLOAT.
-  - Its range of values is minimum to maximum price of the cryptocurrency in the given year expressed in USD.
+  - Its range of values is minimum to maximum price of the cryptocurrency in the given year.
   - The distribution of this attribute is complex, and follows the fluctuations of the specific cryptocurrency.
   - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
   - This value is required for analysis, and was checked to be complete.
@@ -36,7 +36,7 @@ All three coins then have the following six attributes differentiated by the suf
 - **low**
   - The lowest price of the coin in USD during the hour following its corresponding ***time*** attribute.
   - This attribute is of the type FLOAT.
-  - Its range of values is minimum to maximum price of the cryptocurrency in the given year expressed in USD.
+  - Its range of values is minimum to maximum price of the cryptocurrency in the given year.
   - The distribution of this attribute is complex, and follows the fluctuations of the specific cryptocurrency.
   - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
   - This value is required for analysis, and was checked to be complete.
@@ -45,15 +45,35 @@ All three coins then have the following six attributes differentiated by the suf
 - **open**
   - The price of the coin in USD at the exact time of its corresponding ***time*** attribute.
   - This attribute is of the type FLOAT.
-  - Its range of values is minimum to maximum price of the cryptocurrency in the given year expressed in USD.
+  - Its range of values is minimum to maximum price of the cryptocurrency in the given year.
   - The distribution of this attribute is complex, and follows the fluctuations of the specific cryptocurrency.
   - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
   - This value is required for analysis, and was checked to be complete.
   - We plan on using this attribute to spot large fluctuations in price over multiple hours.
   - This feature does not include any sensitive information.
 - **volumefrom**
+  - The total amount of the coin traded into USD during the hour following its corresponding ***time*** attribute (in units of the coin).
+  - This attribute is of the type FLOAT.
+  - Its range of values is minimum to maximum number of coins traded into USD in the given year.
+  - The distribution of this attribute is complex, and follows the changes in demand for the currency.
+  - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
+  - This value is required for analysis, and was checked to be complete.
+  - The value will be used to check fluctuations in currency demand.
+  - This feature does not include any sensitive information.
 - **volumeto**
-- **close**
+  - The total amount of USD traded into the coin during the hour following its corresponding ***time*** attribute (in units of USD).
+  - This attribute is of the type FLOAT.
+  - Its range of values is minimum to maximum number of coins traded into USD in the given year.
+  - The distribution of this attribute is complex, and follows the changes in demand for the currency.
+  - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
+  - This value is required for analysis, and was checked to be complete.
+  - The value will be used to check fluctuations in currency demand.
+  - This feature does not include any sensitive information.
+ 
+***Meme Coins:***
+
+***Further Notes:***
+
 
 ## Structure of csv files:
 
