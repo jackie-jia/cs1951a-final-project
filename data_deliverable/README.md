@@ -6,7 +6,7 @@ This is the data deliverable's master directory! Please use the following shortc
 
 ### Links to Data ### 
 - [Full Reddit Data](data/reddit/cleaned)
-- [Full Coins Data](data/cryptocurrencies/cleaned)
+- [Full Coin Data](data/cryptocurrencies/cleaned)
 - [Sample Data](data/sample)
   - [Proper Posts Reddit Sample](data/sample/sample_posts.csv)
   - [Meme Comments Reddit Sample](data/sample/sample_comments.csv)
