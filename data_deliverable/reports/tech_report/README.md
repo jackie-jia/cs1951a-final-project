@@ -33,7 +33,7 @@
 
 
 #### Are there duplicates? Do these occur in fields that are important for your project's goals?
-- **Reddit**: There are duplicates for posts/comments that were found using multiple keywords for different coins. We want to keep these duplicates so that we can use those posts/comments in the analyses for all the coins they are tagged with.
+- **Reddit**: There are duplicates for posts/comments that were found using multiple keywords for different coins. We want to keep some of these duplicates so that we can use those posts/comments in the analyses for all the coins they are tagged with. However, we did remove certain duplicate posts and comments in which the text is identical and found using the same coin search as we believe this is likely due to spamming and not an accurate representation of the discourse surrounding the coin. 
 
 
 #### How is the data distributed? Is it uniform or skewed? Are there outliers? What are the min/max values? (focus on the fields that are most relevant to your project goals)
@@ -43,6 +43,6 @@
 - **Reddit**: There are no data type issues.
 
 #### Do you need to throw any data away? What data? Why? Any reason this might affect the analyses you are able to run or the conclusions you are able to draw?
-- **Reddit**: All of the data will be used. 
+- **Reddit**: In our data collection, we only chose to obtain the columns of data that we thought were useful. In our data column, we removed some duplicates as well as posts and comments that were missing content since they would not be useful for us. Removing duplicate data and missing posts should help us obtain better analyses. While there may have been certain attributes of the data we chose not to inclue that could be helpful in our analysis, we do not think this would affect the conclusions we are able to draw in the end. All of the data kept after data cleaning will be used. 
 
 ### Summarize any challenges or observations you have made since collecting your data. Then, discuss your next steps and how your data collection has impacted the type of analysis you will perform. (approximately 3-5 sentences)
