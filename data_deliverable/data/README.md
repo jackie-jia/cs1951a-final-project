@@ -69,18 +69,20 @@ All three coins then have the following five attributes differentiated by the su
   - This value is required for analysis, and was checked to be complete.
   - The value will be used to check fluctuations in currency demand.
   - This feature does not include any sensitive information.
- 
+
+The csv file containing the range of values for these attributes can be found [here](sample/range/proper_coin_range.csv).
+
 ***Meme Coins:***
 
 The 'meme' coins are cryptocurrencies that have some of the highest market capitalization but are considered to have been created for the 'meme. They are known to be very volatile cryptocurrencies. For this category we chose Dogecoin (DOGE), Shiba Inu (SHIB), and Sushi (SUSHI). The table is of dimensions (8761 x 16).
 
-These coins have the same attributes described in the ***Proper Coins*** section above.
+These coins have the same attributes described in the ***Proper Coins*** section above. The csv file containing the range of values for these attributes can be found [here](sample/range/meme_coin_range.csv).
 
 ***Further Notes:***
 
 The Shiba Inu coin was released on June 14th 2021, so has incomplete data for the year. This coin was still included out of interest for analysis of the emergence of the coin and the high initial increase in price that followed its release.
 
-## Subreddit data:
+## Reddit data:
 
 We have four .csv files storing the meme coin comment data, meme post data, serious coin comment data, and serious post data.
 
