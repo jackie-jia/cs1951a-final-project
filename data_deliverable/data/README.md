@@ -20,47 +20,13 @@ The data for these coins has the following attributes:
   - This value is required, and was checked to be complete.
   - We plan on using this attribute to find the time at which large fluctuations in price took place. We then plan on linking posts of a certain time interval before the time of the fluctuation to the fluctuation for text analysis.
   -  This feature does not include any sensitive information.
-- **btc_high**: 
-- **btc_low**
-- **btc_open**
-- **btc_volumefrom**
-- **btc_volumeto**
-- **btc_close**
-
-- **eth_high**
-- **eth_low**
-- **eth_open**
-- **eth_volumefrom**
-- **eth_volumeto**
-- **eth_close**
-
-- **sol_high**
-- **sol_low**
-- **sol_open**
-- **sol_volumefrom**
-- **sol_volumeto**
-- **sol_close**
-
-- **doge_high**
-- **doge_low**
-- **doge_open**
-- **doge_volumefrom**
-- **doge_volumeto**
-- **doge_close**
-
-- **shib_high**
-- **shib_low**
-- **shib_open**
-- **shib_volumefrom**
-- **shib_volumeto**
-- **shib_close**
-
-- **sushi_high**
-- **sushi_low**
-- **sushi_open**
-- **sushi_volumefrom**
-- **sushi_volumeto**
-- **sushi_close**
+All three coins then have the following six attributes differentiated by the suffix 'SYMBOL_' in the column name:
+- **high**: 
+- **low**
+- **open**
+- **volumefrom**
+- **volumeto**
+- **close**
 
 ## Structure of csv files:
 
@@ -86,5 +52,4 @@ For the post data, the attributes are:
 - **upvote_ratio**: The percentage of upvotes out of all votes for the post
 - **coin**: The coin whose keyword search led to the discovery of the post
 
-
-You will also need to provide a sample of your data in this directory. Please delete the example `sample.db` and replace it with your own data sample. ***Your sample does not necessarily have to be in the `.db` format; feel free to use `.json`, `.csv`, or any other data format that you are most comfortable with***.
+The sample to the data can be found [here](/sample)
