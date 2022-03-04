@@ -4,7 +4,7 @@
 
 **Coin data:**
 
-We got one year of hour to hour historical data for 6 different cryptocurrencies. The data is from 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022 (inclusive) for UTC-05:00 (EST), giving 8761 data points for each coin. It covers three of some of the top 'proper' cryptocurrencies (Bictoin, Ethereum, Solana) and three of some of the top 'meme' cryptocurrencies (Dogecoin, Shiba Inu, Sushi) by market capitalization.
+We got one year of hour to hour historical data for 6 different cryptocurrencies. The data is from 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022 (inclusive) for UTC-05:00 (EST), giving 8761 hours of data for each coin. It covers three of some of the top 'proper' cryptocurrencies (Bictoin, Ethereum, Solana) and three of some of the top 'meme' cryptocurrencies (Dogecoin, Shiba Inu, Sushi) by market capitalization.
 
 ***Proper Coins:***
 
@@ -72,8 +72,12 @@ All three coins then have the following five attributes differentiated by the su
  
 ***Meme Coins:***
 
-The 'meme' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). The table is of dimensions (8761 x 16).
+The 'meme' coins are cryptocurrencies that have some of the highest market capitalization but are considered to have been created for the 'meme. They are known to be very volatile cryptocurrencies. For this category we chose Dogecoin (DOGE), Shiba Inu (SHIB), and Sushi (SUSHI). The table is of dimensions (8761 x 16).
+
+These coins have the same attributes described in the ***Proper Coins*** section above.
+
 ***Further Notes:***
+
 
 
 ## Structure of csv files:
