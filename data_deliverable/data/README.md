@@ -52,4 +52,4 @@ For the post data, the attributes are:
 - **upvote_ratio**: The percentage of upvotes out of all votes for the post
 - **coin**: The coin whose keyword search led to the discovery of the post
 
-The sample to the data can be found [here](/sample)
+The sample to the data can be found [here](../sample)
