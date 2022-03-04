@@ -11,7 +11,7 @@ We got one year of hour to hour historical data for 6 different cryptocurrencies
 The 'proper' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). 
 
 The data for these coins has the following attributes:
-- **time**:
+- **time**
   - This attribute was converted to the date format, and shows up only once in the table for all three coins.
   - The range of values is 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022.
   - The values are uniformly distributed in order by hour from 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022.
