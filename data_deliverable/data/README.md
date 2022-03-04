@@ -7,21 +7,19 @@
 We got one year of hour to hour historical data for 6 different cryptocurrencies. The data is from 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022 (inclusive) for UTC-05:00 (EST), giving 8761 data points for each coin. It covers three of some of the top 'proper' cryptocurrencies (Bictoin, Ethereum, Solana) and three of some of the top 'meme' cryptocurrencies (Dogecoin, Shiba Inu, Sushi) by market capitalization.
 
 ***Proper Coins:***
+
 The 'proper' coins are cryptocurrencies that have some of the highest market capitalization out there. They are treated more seriously than others as new potential currencies. In fact, two of those that we chose to collect data for are starting to be accepted as forms of payment by certain businesses. For this category we chose Bitcoin (BTC), Ethereum (ETH), and Solona (SOL). 
 
 The data for these coins has the following attributes:
 - **time**:
-  - This attribute was converted to the date format, and is unique to the table.
+  - This attribute was converted to the date format, and shows up only once in the table for all three coins.
   - The range of values is 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022.
-  - The values are uniformly distributed in order by hour from 
-Simplified analysis of the distribution of values
-Is this an identifier?
-Are these values unique?
-Will you use this value (maybe in composition with others) to detect possible duplicate records? If so, how?
-Is this a required value?
-Do you plan to use this attribute/feature in the analysis? If so, how?
-Does this feature include potentially sensitive information? If so, how do you suggest handling such issues?
-
+  - The values are uniformly distributed in order by hour from 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022.
+  - This attribute is an identifier, and is unique. 
+  - Since this value is meant to be unique and outputted by the API, no duplicate records exist.
+  - This value is required, and was checked to be complete.
+  - We plan on using this attribute to find the time at which large fluctuations in price took place. We then plan on linking posts of a certain time interval before the time of the fluctuation to the fluctuation for text analysis.
+  -  This feature does not include any sensitive information.
 - **btc_high**: 
 - **btc_low**
 - **btc_open**
