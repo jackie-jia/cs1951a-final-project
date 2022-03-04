@@ -8,7 +8,7 @@
 
 #### **Is the source reputable?**
 - **Reddit**: Since we are looking at popularity and sentiment on social media, Reddit is a reputable source for our specific purposes.
-- **Crypto**: 
+- **Crypto**: Yes, this source does seem to be reputable.
 
 #### **How did you generate the sample? Is it comparably small or large? Is it representative or is it likely to exhibit some kind of sampling bias?**
 - Our project will compare more established coins (bitcoin, ethereum, solano) to meme coins (dogecoin, sushi, shiba_inu) by looking at relationships between price fluctuations and the content of reddit posts/comments that mention each of these coins.
@@ -52,3 +52,5 @@
 - **Crypto**: We do not need to throw any crypto data away.
 
 ### Summarize any challenges or observations you have made since collecting your data. Then, discuss your next steps and how your data collection has impacted the type of analysis you will perform. (approximately 3-5 sentences)
+
+One observation we have after collecting our data from Reddit is that there is simply a lot of data and many simply seem tangential to the coin and not directly talking about the coin itself. Thus, in our analysis we will focus on time periods of large fluctuations for the coins by analyzing the coin data, then using this information to analyze portions of the Reddit data that correspond to these times. We will also likely conduct sentiment analysis to explore whether there is a correlation between sentiment and the coin's price, as well as whether or not this differs between proper and meme coins. 
