@@ -2,7 +2,7 @@
 This is the data deliverable's master directory! Please use the following shortcut links to access the different components of this deliverable.
 
 ### Data Spec ###
-[Data spec](data/)
+[Data Spec](data/)
 
 ### Links to Data ### 
 - [Full Reddit Data](data/reddit/cleaned)
