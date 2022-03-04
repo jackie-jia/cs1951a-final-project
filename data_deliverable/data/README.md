@@ -82,7 +82,7 @@ These coins have the same attributes described in the ***Proper Coins*** section
 
 The Shiba Inu coin was released on June 14th 2021, so has incomplete data for the year. This coin was still included out of interest for analysis of the emergence of the coin and the high initial increase in price that followed its release.
 
-## Subreddit data:
+## Reddit data:
 
 We have four .csv files storing the meme coin comment data, meme post data, serious coin comment data, and serious post data.
 
