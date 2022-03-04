@@ -96,6 +96,7 @@ For the comment data, the attributes are:
 - **submission_id**: The id of the post that the comment belongs to
   - This attribute is a STRING.
   - Since this attribute is a string id with approximately the same range as the range for the id column in the post data. This attribute is used to identify the post under which it was commented.
+  - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
   - This value is may or may not be needed for analysis, but it is helpful for us to link the comment to its parent post.
   - This feature does not include any sensitive information.
 - **created_utc**: The timestamp at which the comment was posted
@@ -103,16 +104,19 @@ For the comment data, the attributes are:
   - This attribute is a STRING.
   - Since this attribute contains the text of a user's comment, there is no particular distribution of the text.
   - This data is needed for analysis, and we have filtered out all comments where the body has been marked as [removed] or [deleted] on Reddit. 
+  - This is not an identifier and the values are not necessarily unique. However, taken with the id and coin type, we used it to identify duplicate posts that may have been due to spamming on Reddit. 
   - We plan on using this attribute to conduct sentiment analysis to analyze the sentiment around our coins.
   - This feature could potentially have sensitive information if a user were to share it, but this is highly unlikely given the nature of Reddit as a public platform. 
 - **score**: The number of upvotes the comment received
   - This attribute is an INTEGER.
   - This attribute ranges from -33 to 513 for the proper coin comments dataset and -57 to 515 for the meme coin comments dataset. Both datasets are heavily right skewed, likely due to the fact that most Reddit posts do not receive many upvotes, with only a few gaining more traction.
+  - This is not an identifier, and the values are not necessarily unique, so it will not be used to identify duplicate records.
   - This value could be used for analysis in weighting certain comments to add an extra layer to our sentiment analysis. 
   - This feature does not include any sensitive information.
 - **coin**: The coin that the post the comment belongs to is relevant to
   - This attribute is a STRING
   - This attribute can take 6 possible values, which are the names of each of our coins. Out of the 6 values, "ethereum" is the most popular. 
+  - This is not an identifier, and the values are not necessarily unique, but it is used in conjunction with the body attribute to help remove certain duplicate posts. 
   - This value is was created after the raw data was obtained in order to link each comment to the coin through which the comment was found when obtaining the data. 
   - We plan on using this attribute to determine the number of comments related to a coin, which can help us track its popularity in the subreddit's discourse.
   - This feature does not include any sensitive information.
