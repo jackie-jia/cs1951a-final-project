@@ -1,8 +1,6 @@
 # Data Spec
 
-## Structure of json files:
-
-**Coin data:**
+## Coin data:
 
 We got one year of hour to hour historical data for 6 different cryptocurrencies. The data is from 12:00 AM on March 1st 2021 to 12:00 AM on March 1st 2022 (inclusive) for UTC-05:00 (EST), giving 8761 hours of data for each coin. It covers three of some of the top 'proper' cryptocurrencies (Bictoin, Ethereum, Solana) and three of some of the top 'meme' cryptocurrencies (Dogecoin, Shiba Inu, Sushi) by market capitalization.
 
@@ -80,9 +78,7 @@ These coins have the same attributes described in the ***Proper Coins*** section
 
 The Shiba Inu coin was released on June 14th 2021, so has incomplete data for the year. This coin was still included out of interest for analysis of the emergence of the coin and the high initial increase in price that followed its release.
 
-## Structure of csv files:
-
-**Subreddit data:**
+## Subreddit data:
 
 We have four .csv files storing the meme coin comment data, meme post data, serious coin comment data, and serious post data.
 
