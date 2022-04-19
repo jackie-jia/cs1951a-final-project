@@ -82,10 +82,9 @@ def scan_data(formatted_list):
 #     print(tstats, pvalue)
 
 
-
-
 if __name__ == "__main__":
     proper_binary_list = scan_data(clean_data(proper_posts_list))
-    meme_binary_list = scan_data(clean_data(meme_posts_list))
+    print(proper_binary_list)
+    # meme_binary_list = scan_data(clean_data(meme_posts_list))
     # two_sample_ttest(proper_binary_list, meme_binary_list)
     
