@@ -108,17 +108,20 @@ def get_value_counts_table(data, col_name):
 if __name__ == "__main__":
     proper_binary_list = scan_data(clean_data(proper_posts_list))
     meme_binary_list = scan_data(clean_data(meme_posts_list))
-    # print("proper List")
-    # print(proper_binary_list)
-    # print("meme list")
-    # print(meme_binary_list)
     two_sample_ttest(proper_binary_list, meme_binary_list)
-    df = pd.DataFrame(proper_binary_list, columns=['isFinance'])
-    review_count_table = get_value_counts_table(df, "review_reason_code")
-    print(review_count_table)
+   
+    
     # print(df)
 
     # Data Visualization
-    # review_count_table.plot(kind='pie', labels=review_count_table["review_reason_code"])
-    # plt.savefig("Finance.png")
-    # plt.show()
+    # proper_list_df = pd.DataFrame(proper_binary_list, columns=['isFinance'])
+    # proper_count_table = get_value_counts_table(proper_list_df, "isFinance")
+    # proper_count_table["count"].plot(kind='pie', labels=proper_count_table["count"], startangle=90, autopct='%1.1f%%', title='Num Posts With Financial Terms (Proper Coins)')
+    # print(proper_count_table)
+    # plt.savefig("Proper.png")
+
+    meme_list_df = pd.DataFrame(meme_binary_list, columns=['isFinance'])
+    meme_count_table = get_value_counts_table(meme_list_df, "isFinance")
+    meme_count_table["count"].plot(kind='pie', labels=meme_count_table["count"], startangle=90, autopct='%1.1f%%', title='Num Posts With Financial Terms (Meme Coins)')
+    print(meme_count_table)
+    plt.savefig("Meme.png")
