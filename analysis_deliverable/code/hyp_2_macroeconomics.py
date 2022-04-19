@@ -13,10 +13,15 @@ proper_comments = pd.read_csv("/Users/nicksawicki/Desktop/Data_Science/The-Flint
 # Re (Regular Expression Operations) https://docs.python.org/3/library/re.html 
 
 
+"""
+Converts text column of the dataframe into a python list
+"""
 proper_posts_list = proper_posts['selftext'].tolist()
 meme_posts_list = meme_posts['selftext'].tolist()
 
-
+"""
+Codes for emojies that get recognized by the re package and eliminated from a string
+"""
 emoj = re.compile("["
         u"\U0001F600-\U0001F64F"  # emoticons
         u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -38,6 +43,10 @@ emoj = re.compile("["
         u"\u3030"
                       "]+", re.UNICODE)
 
+"""
+This method takes in a list and gets rid of all the emojies, symbols, and makes everything lowercase. 
+It returns a cleaned list of all of the posts. 
+"""
 def clean_data(dirty_data):
     clean_list = []
     for i in range(0, 1014): #  for i in range(0,len(dirty_data)):
@@ -48,6 +57,13 @@ def clean_data(dirty_data):
     return clean_list
     
 
+"""
+This method parses each line of the list into individual words and checks to 
+see if any of the words in the post equal the finance words. If it does,
+then a 1 will be added to an array indicating that the post contains content 
+that relates to monetary policy. If the post is not related to monetary policy,
+a 0 will be placed in the array instead. 
+"""
 def scan_data(formatted_list):
     post_counter = 0 
     finance_words = ['fed', 'rates', 'interest', 'gdp', 'nominal', 'cpi']
