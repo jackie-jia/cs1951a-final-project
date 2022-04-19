@@ -40,21 +40,17 @@ emoj = re.compile("["
 
 def clean_data(dirty_data):
     clean_list = []
-    post_error = 0
-    for i in range(0,len(dirty_data)):
+    for i in range(0, 1014): #  for i in range(0,len(dirty_data)):
         no_emoji = re.sub(emoj, '', dirty_data[i])
         no_symbols = re.sub(r'[^\w]', ' ', no_emoji)
         lower_case = no_symbols.lower()
         clean_list.append(lower_case)
-        post_error = post_error + 1
-    print(post_error)
-    # print(clean_list[0])
     return clean_list
     
 
 def scan_data(formatted_list):
     post_counter = 0 
-    finance_words = ['the']
+    finance_words = ['fed', 'rates', 'interest', 'gdp', 'nominal', 'cpi']
     word_flag = False   
     post_tracker_list = []
     for i in range(0, len(formatted_list)):
@@ -69,22 +65,19 @@ def scan_data(formatted_list):
         else:
             post_tracker_list.append(0) 
         word_flag = False
-    
-    # print(post_counter)
-    # print(len(post_tracker_list))
-    # print(post_tracker_list)
-    #print(len(sample_proper))
+
     return post_tracker_list
 
 
-# def two_sample_ttest(values_a, values_b):
-#     tstats, pvalue = scipy.stats.ttest_ind(values_a, values_b, nan_policy='omit')
-#     print(tstats, pvalue)
+def two_sample_ttest(values_a, values_b):
+    tstats, pvalue = scipy.stats.ttest_ind(values_a, values_b, nan_policy='omit')
+    print(tstats, pvalue)
+
+    # t-statistic: 2.900667250991424    p-value: 0.003763836254154633
 
 
 if __name__ == "__main__":
     proper_binary_list = scan_data(clean_data(proper_posts_list))
-    print(proper_binary_list)
-    # meme_binary_list = scan_data(clean_data(meme_posts_list))
-    # two_sample_ttest(proper_binary_list, meme_binary_list)
+    meme_binary_list = scan_data(clean_data(meme_posts_list))
+    two_sample_ttest(proper_binary_list, meme_binary_list)
     
