@@ -5,13 +5,16 @@ btc_low,28908.07,68464.62
 btc_open,29251.5,68624.18
 btc_volumefrom,148.52,82812.41
 btc_volumeto,7287766.69,4808260331.74
+btc_close,29251.5,68624.18
 eth_high,1441.1,4865.94
 eth_low,1422.82,4835.79
 eth_open,1426.42,4848.03
 eth_volumefrom,1172.14,417791.18
 eth_volumeto,4674214.04,1030308912.48
+eth_close,1426.42,4848.03
 sol_high,12.11,259.95
 sol_low,11.9,256.34
 sol_open,11.98,258.63
 sol_volumefrom,4768.24,1337590.42
 sol_volumeto,65399.43,246645365.06
+sol_close,11.98,258.63

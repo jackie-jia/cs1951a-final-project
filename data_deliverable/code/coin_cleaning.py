@@ -33,7 +33,6 @@ btc_data_5 = json.load(file)
 file.close()
 btc_data = btc_data_1['Data']['Data'] + btc_data_2['Data']['Data'] + btc_data_3['Data']['Data'] \
         + btc_data_4['Data']['Data'] + btc_data_5['Data']['Data']
-btc_df = pd.DataFrame.from_records(btc_data, columns=['time', 'high', 'low', 'open', 'volumefrom', 'volumeto'])
 
 
 ''' Ethereum '''
@@ -62,7 +61,6 @@ eth_data_5 = json.load(file)
 file.close()
 eth_data = eth_data_1['Data']['Data'] + eth_data_2['Data']['Data'] + eth_data_3['Data']['Data'] \
         + eth_data_4['Data']['Data'] + eth_data_5['Data']['Data']
-eth_df = pd.DataFrame.from_records(eth_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto'])
 
 ''' Solana '''
 # All five raw SOL data filepaths
@@ -90,24 +88,23 @@ sol_data_5 = json.load(file)
 file.close()
 sol_data = sol_data_1['Data']['Data'] + sol_data_2['Data']['Data'] + sol_data_3['Data']['Data'] \
         + sol_data_4['Data']['Data'] + sol_data_5['Data']['Data']
-sol_df = pd.DataFrame.from_records(sol_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto'])
 
 
 # Each proper coin converted to a dataframe with selected columns
-btc_df = pd.DataFrame.from_records(btc_data, columns=['time', 'high', 'low', 'open', 'volumefrom', 'volumeto'])
-eth_df = pd.DataFrame.from_records(eth_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto'])
-sol_df = pd.DataFrame.from_records(sol_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto'])
+btc_df = pd.DataFrame.from_records(btc_data, columns=['time', 'high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+eth_df = pd.DataFrame.from_records(eth_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+sol_df = pd.DataFrame.from_records(sol_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
 
 # Convert UNIX timestamp unit to date unit
 btc_df['time'] = pd.to_datetime(btc_df['time'],unit='s')
 
 # Add proper coin label to column names for dataframe merge
 btc_df.rename(columns={'high': 'btc_high', 'low': 'btc_low', 'open': 'btc_open', 'volumefrom': 'btc_volumefrom', \
-    'volumeto': 'btc_volumeto'}, inplace=True)
+    'volumeto': 'btc_volumeto', 'close': 'btc_close'}, inplace=True)
 eth_df.rename(columns={'high': 'eth_high', 'low': 'eth_low', 'open': 'eth_open', 'volumefrom': 'eth_volumefrom', \
-    'volumeto': 'eth_volumeto'}, inplace=True)
+    'volumeto': 'eth_volumeto', 'close': 'eth_close'}, inplace=True)
 sol_df.rename(columns={'high': 'sol_high', 'low': 'sol_low', 'open': 'sol_open', 'volumefrom': 'sol_volumefrom', \
-    'volumeto': 'sol_volumeto'}, inplace=True)
+    'volumeto': 'sol_volumeto', 'close': 'sol_close'}, inplace=True)
 
 # Merge the dataframes
 proper_coin_df = btc_df.join([eth_df, sol_df])
@@ -207,20 +204,20 @@ sushi_data = sushi_data_1['Data']['Data'] + sushi_data_2['Data']['Data'] + sushi
         + sushi_data_4['Data']['Data'] + sushi_data_5['Data']['Data']
  
 # Each memecoin converted to a dataframe with selected columns
-doge_df = pd.DataFrame.from_records(doge_data, columns=['time', 'high', 'low', 'open', 'volumefrom', 'volumeto'])
-shib_df = pd.DataFrame.from_records(shib_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto'])
-sushi_df = pd.DataFrame.from_records(sushi_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto'])
+doge_df = pd.DataFrame.from_records(doge_data, columns=['time', 'high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+shib_df = pd.DataFrame.from_records(shib_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
+sushi_df = pd.DataFrame.from_records(sushi_data, columns=['high', 'low', 'open', 'volumefrom', 'volumeto', 'close'])
 
 # Convert UNIX timestamp unit to date unit
 doge_df['time'] = pd.to_datetime(btc_df['time'],unit='s')
 
 # Add memecoin label to column names for dataframe merge
 doge_df.rename(columns={'high': 'doge_high', 'low': 'doge_low', 'open': 'doge_open', 'volumefrom': 'doge_volumefrom', \
-    'volumeto': 'doge_volumeto'}, inplace=True)
+    'volumeto': 'doge_volumeto', 'close': 'doge_close'}, inplace=True)
 shib_df.rename(columns={'high': 'shib_high', 'low': 'shib_low', 'open': 'shib_open', 'volumefrom': 'shib_volumefrom', \
-    'volumeto': 'shib_volumeto'}, inplace=True)
+    'volumeto': 'shib_volumeto', 'close': 'shib_close'}, inplace=True)
 sushi_df.rename(columns={'high': 'sushi_high', 'low': 'sushi_low', 'open': 'sushi_open', 'volumefrom': 'sushi_volumefrom', \
-    'volumeto': 'sushi_volumeto'}, inplace=True)
+    'volumeto': 'sushi_volumeto', 'close': 'sushi_close'}, inplace=True)
 
 # Merge the dataframes
 meme_coin_df = doge_df.join([shib_df, sushi_df])
