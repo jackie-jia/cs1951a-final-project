@@ -5,13 +5,16 @@ doge_low,0.04773,0.7144
 doge_open,0.0478,0.7369
 doge_volumefrom,743810.04,668072631.87
 doge_volumeto,40532.25,344036094.94
+doge_close,0.0478,0.7369
 shib_high,0.0,8.863e-05
 shib_low,0.0,8.427e-05
 shib_open,0.0,8.674e-05
 shib_volumefrom,0.0,3043981455378.83
 shib_volumeto,0.0,149742785.46
+shib_close,0.0,8.674e-05
 sushi_high,2.867,23.41
 sushi_low,2.754,23.02
 sushi_open,2.854,23.29
 sushi_volumefrom,3050.42,2598112.41
 sushi_volumeto,32330.3,34779855.64
+sushi_close,2.854,23.29
