@@ -67,7 +67,9 @@ def plot_price_diff_hist(filtered_meme, filtered_proper):
     plt.xlabel('Average Change in Price per Day (%)')
     plt.ylabel('Number of Days')
     plt.title('Comparison of Daily Price Change for Meme and Proper Coins')
+    #plt.savefig('../visualizations/histogram_comparison.png')
     plt.show()
+    
 
 def volatility_test(filtered_meme, filtered_proper):
     
