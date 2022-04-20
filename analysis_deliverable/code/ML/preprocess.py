@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 import pandas as pd
 from nltk.tokenize.casual import TweetTokenizer
 from nltk.corpus import stopwords
@@ -10,12 +11,11 @@ import emoji
 from itertools import chain
 from collections import Counter
 from math import isnan
+import pickle
 
-# Pre-Processing Hyperparameters ------
-# Threshold frequency at which words aren't considered for dictionary
-FREQUENCY = 1
-# Maximum number of hours a post takes to affect price
-TIMEFRAME = 3
+'''
+This file retrieves and prepares the data for the RNN model.
+'''
 
 # Finds root directory of user
 ROOT_DIR = path.dirname(path.abspath((__file__)))
@@ -36,12 +36,13 @@ MEME_DATA = 'meme_data.npy'
 
 def retrieve_reddit_data(coin_type):
 	'''
-	Gets reddit text data of desired type from csv files in data folder.
+	Gets reddit text data of desired type from csv files in data folder of data_deliverable.
 
-	coin_type (str): Either "proper" or "meme"
+	coin_type (str): Either "proper" or "meme", the desired coin type.
 	
-	return: pd.DataFrame containing comments and posts of desired type.
+	return: pd.DataFrame containing concatenated comments and posts of desired coin type.
 	'''
+	# Set correct filepaths based on input coin type
 	POSTS_PATH = ''
 	COMMENTS_PATH = ''
 	if coin_type == 'proper':
@@ -57,28 +58,29 @@ def retrieve_reddit_data(coin_type):
 	posts_df.rename(columns={'created_utc': 'time', 'selftext': 'text'}, inplace=True)
 	comments_df = comments_df[['created_utc', 'body', 'coin']]
 	comments_df.rename(columns={'created_utc': 'time', 'body': 'text'}, inplace=True)
+	# Concatenate them
 	df = pd.concat([posts_df, comments_df])
-	# print(f"The concatenated raw dataframe is {df}.")
+	print(f"The concatenated raw dataframe looks like \n\n {df.head(4)} \n")
 	return df
 
 def _separate_emojis(post, emojis):
 	'''
-	Separates emojis in input post/comment.
+	Separates emojis in input post/comment with a space for tokenization.
 
-	post (str): post to modify.
-	emojis (set): Set of emojis
+	post (str): Input post to modify.
+	emojis (set): Set of emojis to separate.
 	
-	return: str
+	return: (str) Input post with emojis separated by a space.
 	'''
 	return ''.join(' ' + char if char in emojis else char for char in post)
 
 def _contains_number(word):
 	'''
-	Check if an input word contains a number.
+	Checks if an input word contains a number.
 
-	word (str): Word to check.
+	word (str): Single token to check.
 	
-	return: Boolean
+	return: (boolean)
 	'''
 	for char in word:
 		if char.isdigit():
@@ -87,14 +89,15 @@ def _contains_number(word):
 
 def _tokenize(post, stop_words, emojis):
 	'''
-	Helper function that tokenizes posts/comments by words, and removes common stop words, and non-emoji words
-	that have a number in them.
+	Helper function that tokenizes posts/comments into individual words. In doing so, removes stop words, 
+	and non-emoji words that have a number in them.
 
-	post (str): Text to tokenize.
-	stop_words (set): Set of stop words not to tokenize.
-	emojis (set): Set of emojis
+	post (str): Post/comment to tokenize.
+	stop_words (set): Set of stop words not to tokenize, which includes coin keywords which were searched for
+	to get dataset.
+	emojis (set): Set of emojis.
 	
-	return: (list) Tokenized text.
+	return: (list) Tokenized text by word.
 	'''
 	words = TweetTokenizer().tokenize(post)
 	filtered_words = []
@@ -108,12 +111,12 @@ def _tokenize(post, stop_words, emojis):
 
 def clean_text(df):
 	'''
-	Cleans reddit text data: removes punctuation and whitespace, tokenizes, and removes common words
+	Cleans reddit text data: removes links, punctuation, whitespace, stopwords (including coin keywords). Also separates
+	emojis with whitespace, turns into lowercase, and tokenizes text into words.
 
-	df (pandas.DataFrame): pd.DataFrame containing combined posts and comments data with three columns:
-	['time', 'text', 'coin']
+	df (pd.DataFrame): Dataframe containing post/comment data with three columns: ['time', 'text', 'coin']
 	
-	return: pd.DataFrame with text column cleaned
+	return: (pd.DataFrame) Dataframe with text column cleaned.
 	'''
 	# Ensure column type is string
 	df = df.astype({'text': str})
@@ -126,44 +129,47 @@ def clean_text(df):
 	emojis = set(emoji.UNICODE_EMOJI['en'])
 	# Remove links, remove punctuation, switch to lowercase, separate emojis
 	df[['text']] = df['text'].apply(lambda x: _separate_emojis(re.sub(r'http\S+', '', x).translate(punctuation).lower(), emojis))
+	# Add coin keywords to set of stopwords
+	coins = ['bitcoin', 'btc', 'ethereum', 'eth', 'solona', 'sol', 'dogecoin', 'doge', 'shiba inu', \
+		 'shiba', 'inu', 'sushi', 'coin']
+	stop_words = set(stopwords.words('english') + coins)
 	# Tokenize, remove standard stopwords and words with numbers that aren't emojis
-	stop_words = set(stopwords.words('english'))
 	df[['text']] = df['text'].apply(lambda x: _tokenize(x, stop_words, emojis))
-	# print(f"The concatenated cleaned dataframe is {df}.")
+	print(f"The concatenated cleaned dataframe looks like \n\n{df.head(4)} \n")
 	return df
 
 def find_frequent(df, frequency):
 	'''
-	Finds the words that show up more than once in the posts/comments.
+	Finds words from input tokenized dataframe with 'text' column that show up at least frequency times.
 
-	df (pandas.DataFrame): pd.DataFrame containing combined posts and comments data with three columns:
-	['time', 'text', 'coin']
-	frequency (int): Minimum frequency required for a word to be added to the dictionary
+	df (pd.DataFrame): DataFrame containing combined posts and comments data with three columns: ['time', 'text', 'coin']
+	frequency (int): Minimum frequency of words in reddit data to be considered for final dictionary.
 	
-	return: pd.DataFrame with text column cleaned
+	return: (list) List of words with required minimum frequency.
 	'''
 	# Get all tokens in df
 	tokens = list(chain(*df.text))
-	# Count their frequencies
+	# Count their frequencies in input data
 	word_count = Counter(tokens)
-	# Find words that only show up once
+	# Find words that only show up less than frequency times
 	low_freq_words = []
 	for k, v in word_count.items():
-		if v <= frequency:
+		if v < frequency:
 			low_freq_words.append(k)
 	# Remove them from the dictionary
 	for w in low_freq_words:
 		word_count.pop(w)
 	return word_count.keys()
 
-def find_vocabulary(frequent, coin_type):
+def create_vocabulary(frequent, coin_type):
 	'''
-  	Builds the vocabulary from the tokenized words.
+  	Builds the vocabulary from the input list of words that show up at least frequency times in input data.
 
-	frequent (list): List of frequent words
-	coin_type (str): Either "proper" or "meme"
+	frequent (list): List of words that show up at least frequency times in input data.
+	coin_type (str): Either "proper" or "meme", the desired coin type.
 
-	return: (dict) word to unique index
+	saves: Output dictionary to json file in ML folder for viewing.
+	return: (dict) Word from input data to unique index.
   	'''
 	word_set = set(frequent)
 	vocabulary = {word: i for i, word in enumerate(word_set)}
@@ -177,85 +183,103 @@ def find_vocabulary(frequent, coin_type):
 	vocab_file.close()
 	return vocabulary
 
-def create_vocabulary(coin_type, frequency):
+def find_vocabulary(coin_type, frequency):
 	'''
-	Creates vocabulary from posts and comments about coins of desired type.
+	Finds vocabulary for posts and comments about coins of desired type, and removes duplicate tokens in each post/
+	comment in original dataframe.
 
-	coin_type (str): Either "proper" or "meme"
-	frequency (int): Minimum frequency required for a word to be added to the dictionary
+	coin_type (str): Either "proper" or "meme", the desired coin type.
+	frequency: (int) Minimum frequency of words in reddit data to be considered for dictionary
 
-	return: 
-	(pd.DataFrame) Text column cleaned.
-	(dict) word to unique index for words found in comments/posts of desired type.
+	return: Tuple -> size 2:
+	- (pd.DataFrame) Dataframe with 'text' column cleaned.
+	- (dict) Word to unique index for words found in comments/posts of desired coin type.
 	'''
 	if coin_type != 'proper' and coin_type != 'meme':
 		print("Coin type was incorrectly given to data retrieval function. Input 'proper' or 'meme'.")
 		return None
 	else:
-		VOCAB_FILE = ''
+		df = 0
 		if coin_type == 'proper':
 			df = retrieve_reddit_data('proper')
-			VOCAB_FILE = 'proper_vocab.json'
 		else:
 			df = retrieve_reddit_data('meme')
-			VOCAB_FILE = 'meme_vocab.json'
 		# Clean text and find recurring words
 		df = clean_text(df)
 		frequent = find_frequent(df, frequency)
-		vocabulary = {}
-		if path.exists(ROOT_DIR + '/' + VOCAB_FILE):
-			with open(VOCAB_FILE) as json_file:
-				vocabulary = json.load(json_file)
-		else:
-			vocabulary = find_vocabulary(frequent, coin_type)
-		# print("Vocabulary has been created! Seee json files in ML folder.")
+		vocabulary = create_vocabulary(frequent, coin_type)
+		print(f"Vocabulary for {coin_type} coins has been created! It is of size {len(vocabulary)}. See json files in ML folder.")
+		# Remove duplicates in text tokenization after dictionary has been created
+		df[['text']] = df['text'].apply(lambda x: list(dict.fromkeys(x)))
 		return df, vocabulary
 
-def one_hot_tokens(tokens, vocabulary, identity):
+def one_hot_tokens(tokens, vocabulary):
 	'''
-	Convert tokens into list of one-hot vectors w.r.t. vocabulary.
+	Convert input tokens into one-hot tensor array of size (post_length x (1 x vocab_size)) w.r.t. input vocabulary.
 
-	tokens (list): List of words to convert to one-hot vectors
-	vocabulary (dict): word --> unique index
-	identity (2x2 int array): Identity matrix of size vocab_size to slice for one-hotting
+	tokens (list): List of words to convert to one-hot vectors.
+	vocabulary (dict): Dictionary of word to unique index for the data.
 
-	return: (list) array of one-hotted vectors representing original tokens list.
+	return: (list) Torch tensor array of size (post_length x (1 x vocab_size)).
   	'''
-	array = []
+	count = 0
+	indices = []
 	for t in tokens:
 		if t in vocabulary:
-			array.append(identity[vocabulary[t], :])
-	if len(array) > 0:
-		return np.array(array)
+			count += 1
+			# Index to one-hot encode
+			indices.append(vocabulary[t])
+	if count > 0:
+		# One-hot encode posts in tensor of size (post_length x 1 x vocab_size)
+		tensor = torch.zeros(count, 1, len(vocabulary), dtype=int)
+		for i, ind in enumerate(indices):
+			tensor[i][0][ind] = 1
+		return tensor
 	return None
 
 def one_hot_text(df, vocabulary):
 	'''
-	Converts tokenized text of df into arrays of one-hot vectors w.r.t. vocabulary.
+	One-hots input token lists from 'text' column of input dataframe w.r.t. input vocabulary, and drops those
+	that are subsequently empty.
 
-	df (pandas.DataFrame): pd.DataFrame containing combined cleaned and tokenized posts and comments data with 
+	df (pd.DataFrame): DataFrame containing combined cleaned and tokenized posts and comments data with 
 	three columns: ['time', 'text', 'coin']
 
-	return: (pandas.DataFrame) Original dataframe but with text one-hotted for DL model:
-	- None if no words from dictionary in input post/comment
-	- Otherwise, (vocab_size x number of words from dict in token) matrix
+	return: (pandas.DataFrame) Original dataframe but with text one-hotted for DL model (as torch tensors).
   	'''
-	# Create identity matrix for one-hotting
-	vocab_size = len(vocabulary)
-	identity = np.identity(vocab_size)
 	# Convery text to array of one-hot vectors w.r.t. input dictionary
-	df[['text']] = df['text'].apply(lambda x: one_hot_tokens(x, vocabulary, identity))
+	df[['text']] = df['text'].apply(lambda x: one_hot_tokens(x, vocabulary))
+	# Drop empty posts
+	df.dropna(inplace=True)
 	return df
 
-def find_fluctuations(df, coin_type):
+def retrieve_coin_data(coin_type):
 	'''
-	Calculates fluctuations in price for each hour of the year for each coin of desired type.
+	Retrieve coin data of desired coin type from data file of data_deliverable.
 
-	coin_type (str): Either "proper" or "meme"
-	df (pandas.DataFrame): pd.DataFrame containing coin data containing columns: [time, COIN_open -> for each COIN]
+	coin_type (str): Either "proper" or "meme", the desired coin type.
 
-	return: (pandas.DataFrame) Dataframe with columns: [time -> converted to UNIX timestamp, COIN_fluc_dir -> -1,0,1 for each COIN]
+	return: (pd.DataFrame) Dataframe of coin data of desired coin type found in data_deliverable.
   	'''
+	COIN_PATH = ''
+	if coin_type == 'proper':
+		COIN_PATH = ROOT_DIR + PROPER_COINS
+	else:
+		COIN_PATH = ROOT_DIR + MEME_COINS
+	coins_df = pd.read_csv(COIN_PATH)
+	return coins_df
+
+def find_fluctuations(coin_type):
+	'''
+	Calculates fluctuations in price for each hour using opening and closing price for each coin in the 
+	three coins of the desired type.
+
+	coin_type (str): Either "proper" or "meme", the desired coin type.
+
+	return: (pd.DataFrame) Dataframe with columns: [time -> converted to UNIX timestamp, 
+	COIN_fluc_dir -> -1,0,1 for each COIN]
+  	'''
+	df = retrieve_coin_data(coin_type)
 	# Convert dates to UNIX time
 	df[['time']] = df['time'].apply(lambda x: int(pd.Timestamp(x).timestamp()))
 	if coin_type != 'proper' and coin_type != 'meme':
@@ -270,42 +294,37 @@ def find_fluctuations(df, coin_type):
 		for coin in coins:
 			df[coin + 'fluc_dir'] = (df[coin + 'close'] - df[coin + 'open']) / df[coin + 'close']
 			df[[coin + 'fluc_dir']] = df[coin + 'fluc_dir'].apply(lambda x: np.sign(x))
-		return df[['time', coins[0] + 'fluc_dir', coins[1] + 'fluc_dir', coins[2] + 'fluc_dir']]
+		df = df[['time', coins[0] + 'fluc_dir', coins[1] + 'fluc_dir', coins[2] + 'fluc_dir']]
+		print(f"The hour by hour fluctuation direction data looks like \n\n{df.head(4)}\n")
+		return df
 
-def retrieve_coin_data(coin_type):
+def cross_match(reddit_df, coin_df, coin_type, timeframe):
 	'''
-	Retrieve coin data of desired coin type.
+	Associates posts to price fluctuations using input timeframe (maximum number of hours a post/comment is assumed to
+	take to affect the coin price).
 
-	coin_type (str): Either "proper" or "meme"
+	reddit_df: Cleaned, one-hot tensor encoded reddit text dataframe.
+	coin_df: Coin fluctuation dataframe.
+	coin_type (str): Either "proper" or "meme", the desired coin type.
+	timeframe: (int) Maximum number of hours a post is assumed to have an effect on price.
 
-	return: (pandas.DataFrame) Coin data dataframe with fluctuations
-  	'''
-	COIN_PATH = ''
-	if coin_type == 'proper':
-		COIN_PATH = ROOT_DIR + PROPER_COINS
-	else:
-		COIN_PATH = ROOT_DIR + MEME_COINS
-	coins_df = pd.read_csv(COIN_PATH)
-	return coins_df
-
-def cross_match(reddit_df, coin_df, coin_type):
-	'''
-	Associates posts to price fluctuations using input timeframe (maximum number of hours a past takes to affect price).
-
-	return:
+	return: Tuple (size 2)
+	- Data_X -> List of posts (one-hot encoded tensors) of size (post_length x 1 x vocab_size)
+	- Data_Y -> List of fluctuation direction as tensors of size 1 (0 for fall, 1 for increase in price)
   	'''
 	coins = []
 	if coin_type == 'proper':
 		coins = ['bitcoin', 'ethereum', 'solona']
 	else:
 		coins = ['dogecoin', 'shiba_inu', 'sushi']
-	data = []
+	data_X = []
+	data_Y = []
 	coin_np = coin_df.to_numpy()
 	# Loop through all gathered coin fluctuation times
 	for i in range(coin_np.shape[0]):
 		time = coin_np[i, 0]
-		# Gather posts within TIMEFRAME hours before a fluctuation
-		rows = reddit_df.loc[(reddit_df['time'] >= time - TIMEFRAME * 60 * 60) & (reddit_df['time'] < time)]
+		# Gather posts within timeframe hours before a fluctuation
+		rows = reddit_df.loc[(reddit_df['time'] >= time - timeframe * 60 * 60) & (reddit_df['time'] < time)]
 		if not rows.empty:
 			for j, coin in enumerate(coins):
 				# Gather posts referring to particular coin
@@ -314,35 +333,48 @@ def cross_match(reddit_df, coin_df, coin_type):
 					posts = posts['text'].to_numpy()
 					for post in posts:
 						# Ensure post is not empty, fluctuation is not NaN or 0
-						if post is not None and not isnan(coin_np[i, j+1]) and coin_np[i, j+1] != 0:
-							data.append(([post, coin_np[i, j+1]]))
-	data = np.array(data)
-	# print(f"Input data for {coin_type} is of shape {data.shape}.")
-	return data
+						if not isnan(coin_np[i, j+1]) and coin_np[i, j+1] != 0:
+							data_X.append(post)
+							label = 0
+							# Create appropriate tensor for label
+							if int(coin_np[i, j+1]) == 1:
+								label = torch.ones(1, dtype=int)
+							else:
+								label = torch.zeros(1, dtype=int)
+							data_Y.append(label)
+	print(f"Data for {coin_type} coins has {len(data_X)} examples.")
+	return data_X, data_Y
 
-def create_input_data():
+def create_input_data(frequency, timeframe):
 	'''
-	Creates input data for the GRU model and returns them.
+	Creates input data using above functions for RNN model and returns them for both coin types
+	using the input hyperparameters.
 
-	return: tuple -> (proper coin data, meme coin data) in numpy matrix format
+	Pre-Processing Hyperparameters ------
+	frequency: (int) Minimum frequency of words in reddit data to be considered for dictionary.
+	timeframe: (int) Maximum number of hours a post is assumed to have an effect on price.
+
+	return: tuple -> (proper data X, proper data Y, meme data X, meme data Y) as lists of tensors.
   	'''
 	# Reddit one-hotted data
-	# print("First we find the proper coin posts/comments.")
-	proper_reddit_df, proper_vocab = create_vocabulary('proper', FREQUENCY)
+	print('——————————————————————————————————————————————————————————')
+	print("First we find the proper coin posts/comments. \n\n")
+	proper_reddit_df, proper_vocab = find_vocabulary('proper', frequency)
 	proper_reddit_df = one_hot_text(proper_reddit_df, proper_vocab)
-	# print("Then we find the meme coin posts/comments.")
-	meme_reddit_df, meme_vocab = create_vocabulary('meme', FREQUENCY)
+	print('——————————————————————————————————————————————————————————')
+	print("Then we find the meme coin posts/comments. \n\n")
+	meme_reddit_df, meme_vocab = find_vocabulary('meme', frequency)
 	meme_reddit_df = one_hot_text(meme_reddit_df, meme_vocab)
 	# Coin fluctuation data
-	# print("We now find the proper coin fluctuation directions for each hour.")
-	proper_coin_df = retrieve_coin_data('proper')
-	proper_coin_df = find_fluctuations(proper_coin_df, 'proper')
-	# print(proper_coin_df)
-	# print("Then we find the meme coin fluctuation directions for each hour.")
-	meme_coin_df = retrieve_coin_data('meme')
-	meme_coin_df = find_fluctuations(meme_coin_df, 'meme')
-	# print(meme_coin_df)
+	print('——————————————————————————————————————————————————————————')
+	print("We now find the proper coin fluctuation directions for each hour. \n\n")
+	proper_coin_df = find_fluctuations('proper')
+	print('——————————————————————————————————————————————————————————')
+	print("Then we find the meme coin fluctuation directions for each hour. \n\n")
+	meme_coin_df = find_fluctuations('meme')
 	# Cross-match reddit post data to coin fluctuation data to create input data
-	proper_data = cross_match(proper_reddit_df, proper_coin_df, 'proper')
-	meme_data = cross_match(meme_reddit_df, meme_coin_df, 'meme')
-	return proper_data, meme_data
+	print('——————————————————————————————————————————————————————————')
+	print("Finally, we cross-match the reddit data to the fluctuations using the timeframe hyperparameter. \n\n")
+	proper_X, proper_Y = cross_match(proper_reddit_df, proper_coin_df, 'proper', timeframe)
+	meme_X, meme_Y = cross_match(meme_reddit_df, meme_coin_df, 'meme', timeframe)
+	return proper_X, proper_Y, meme_X, meme_Y
