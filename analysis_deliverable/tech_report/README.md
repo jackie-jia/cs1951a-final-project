@@ -58,53 +58,53 @@ The alternative hypothesis is that the mean daily price percentage change for me
 - The data was adequate for our analysis. We had sufficient data to apply the CLT and perform a t-test on our data. However, for more interesting analyses and more data, it would be useful to have access to data over a longer period of time (our dataset is limited to a year’s worth of data from 3/1/2021 to 3/1/2022).  
 
 ## Visualization 1: Histogram Comparison 
-### For your visualization, why did you pick this graph? What alternative ways might you communicate the result? Were there any challenges visualizing the results, if so, what where they? Will your visualization require text to provide context or is it standalone (either is fine, but it's recognize which type your visualization is)?
+#### For your visualization, why did you pick this graph? What alternative ways might you communicate the result? Were there any challenges visualizing the results, if so, what where they? Will your visualization require text to provide context or is it standalone (either is fine, but it's recognize which type your visualization is)?
 - I picked a histogram because I wanted to visualize the distribution (over a sample size of 365 days) of the average percentage change in price per day. A histogram allows me to graph the frequency of a metric, so that's why I chose this type of graph. Another way in which I could have communicated the result was a box plot, which would provide additional information about the 25th, 50th and, 75th percentiles of each of the data sets, but I thought that a histogram would be easier to interpret. For the most part, I think that the legend, axis labels, and title of the graph provide enough information to interpret the visualization.
 
 ## ML Model
 
-The model we chose was an RNN deep learning model, which is a supervised learning algorithm. The goal of the model is to take as input comments/posts written within 'timeframe' hours before a coin fluctuation, and output the direction of the coin fluctuation that follows. Note that 'timeframe' is a pre-processing hyperparameter with a default value of 3 (hours), and its value is set at the top of the ml.py file.
+- The model we chose was an RNN deep learning model, which is a supervised learning algorithm. The goal of the model is to take as input comments/posts written within 'timeframe' hours before a coin fluctuation, and output the direction of the coin fluctuation that follows. Note that 'timeframe' is a pre-processing hyperparameter with a default value of 3 (hours), and its value is set at the top of the ml.py file.
 
 #### Why did you use this ML algorithm? 
 
-We used an RNN because of the recursive nature of the algorithm. We have input posts/comments that are texts of varying lengths, so the inputs require a recurrent structure. Otherwise, the shape of the parameters of the model would be undefinable. Furthermore, the posts/comments are sequences of words, so the recurrent structure allows us to have constant parameter shapes but to consider all words in the post/comment before making a prediction of the subsequent fluctuation direction.
+- We used an RNN because of the recursive nature of the algorithm. We have input posts/comments that are texts of varying lengths, so the inputs require a recurrent structure. Otherwise, the shape of the parameters of the model would be undefinable. Furthermore, the posts/comments are sequences of words, so the recurrent structure allows us to have constant parameter shapes but to consider all words in the post/comment before making a prediction of the subsequent fluctuation direction.
 
 #### Which other models did you consider or evaluate?
 
-We began by considering sentiment analysis on the posts/comments to measure the sentiment people had about certain coins in the hours preceding a price fluctuation. However, we realized that our data wasn't labelled, and that sentiment analysis would be difficult and imprecise to complete. Furthermore, since our final goal was to use the input reddit text to predict coin price fluctuations, the prediction would be twofold and imprecise in this scenario: first, predict the reddit post/comment sentiments and then predict the price fluctuation based on that predicted sentiment.
+- We began by considering sentiment analysis on the posts/comments to measure the sentiment people had about certain coins in the hours preceding a price fluctuation. However, we realized that our data wasn't labelled, and that sentiment analysis would be difficult and imprecise to complete. Furthermore, since our final goal was to use the input reddit text to predict coin price fluctuations, the prediction would be twofold and imprecise in this scenario: first, predict the reddit post/comment sentiments and then predict the price fluctuation based on that predicted sentiment.
 
 Thus, we went ahead and settled for a more direct approach which used deep learning to attempt to predict coin price fluctuations based on the input reddit posts/comments.
 
 #### How did you measure success or failure? Why that metric/value? What challenges did you face evaluating the model?
 
-We measured the success of our RNN model by using k-fold cross validation (default was k=4) on the datasets and measuring the average accuracy of the model on the test sets. Note that there are two datasets, since the data was separated by coin type: one was for the proper coins and the other for the meme coins. This metric is the standard way to measure model performance, and the k-fold cross validation averaging ensures that performance is not based on a single favorable train/test split. Evaluating our model in this way was pretty straightforward.
+- We measured the success of our RNN model by using k-fold cross validation (default was k=4) on the datasets and measuring the average accuracy of the model on the test sets. Note that there are two datasets, since the data was separated by coin type: one was for the proper coins and the other for the meme coins. This metric is the standard way to measure model performance, and the k-fold cross validation averaging ensures that performance is not based on a single favorable train/test split. Evaluating our model in this way was pretty straightforward.
 
 #### Did you have to clean or restructure your data?
 
-Lots of data cleaning and restructuring had to take place. The cleaning goes as follows in the preprocessing.py file.
+- Lots of data cleaning and restructuring had to take place. The cleaning goes as follows in the preprocessing.py file.
 
 ##### Cryptocurrency data:
 
-The direction of the coin price fluctuations had to be calculated for each hour. This involved taking the opening and closing price of each coin at each hour, finding the percentage change, and taking the sign of the result. Removing those with 0% or NaN% change, and switching from -1 and 1 to 0 and 1 we get the labels for our data.
+- The direction of the coin price fluctuations had to be calculated for each hour. This involved taking the opening and closing price of each coin at each hour, finding the percentage change, and taking the sign of the result. Removing those with 0% or NaN% change, and switching from -1 and 1 to 0 and 1 we get the labels for our data.
 
 ##### Reddit data:
 
-The reddit data had to be cleaned and tokenized. From posts/comments, we removed links, punctuation, excess whitespace, and stopwords (which includes the crypotcurrency keywords that were used to find the posts/comments in the first place). Furthermore, we separated the emojis with whitespaces (to avoid them being considered as unique single tokens in the tokenization process), we turned everything into lowercase, and tokenized the resulting string into words.
+- The reddit data had to be cleaned and tokenized. From posts/comments, we removed links, punctuation, excess whitespace, and stopwords (which includes the crypotcurrency keywords that were used to find the posts/comments in the first place). Furthermore, we separated the emojis with whitespaces (to avoid them being considered as unique single tokens in the tokenization process), we turned everything into lowercase, and tokenized the resulting string into words.
 
 Using this cleaned tokenization, we used a counter to get the frequency of each token in the overall dataset. Then, we created a dictionary that maps from a token to a unique index for the tokens that came up at least 'frequency' times. Note that 'frequency' is a pre-processing hyperparameter, which is set at the top of ml.py. THis dictionary is saved as a '.json' file in the ML folder, and can be observed for each of the datasets ('proper' and 'meme' coins). Next, we removed any duplicate tokens in each post/comment, and only kept the tokens that belonged to the dictionary we created. Finally, using the dictionary mapping, we one-hotted the input tokens as torch tensors for our RNN model.
 
 ##### Cross-matching:
 
-Finally, once the cryptocurrency and reddit data is cleaned and processed, we cross-match the posts/comments to coin fluctuations by matching all posts/comments made within 'timeframe' hours before a coin fluctuation to that fluctuation direction. Note that 'timeframe' is a pre-processing hyperparameter with a default value of 3 (hours), and its value is set at the top of the ml.py file. Matching them in this way labels the input one-hotted text with what is deemed the 'correct' label by our hypothesis and hyperparameter settings.
+- Finally, once the cryptocurrency and reddit data is cleaned and processed, we cross-match the posts/comments to coin fluctuations by matching all posts/comments made within 'timeframe' hours before a coin fluctuation to that fluctuation direction. Note that 'timeframe' is a pre-processing hyperparameter with a default value of 3 (hours), and its value is set at the top of the ml.py file. Matching them in this way labels the input one-hotted text with what is deemed the 'correct' label by our hypothesis and hyperparameter settings.
 
 #### Does your data have any sensitive/protected attributes that could affect your machine learning model?
 
-No, our model does not use any sensitive/protected attributes. The posts/comments are fully anonymized, and the coin price data is publicly available information.
+- No, our model does not use any sensitive/protected attributes. The posts/comments are fully anonymized, and the coin price data is publicly available information.
 
 #### What is your interpretation of the results? 
 
-The result was not positive. The model takes a long time to train (multiple horus for high hyperparameter settings), so not many hyperparameters values were tried. However, regardless of setting, the average accuracy of the model consistently remained ~50%, which for binary classification is as good as random. We hope to test and visualize the accuracy with different hyperparameter values to see if we observe any accuracy changes for the final deliverable.
+- The result was not positive. The model takes a long time to train (multiple horus for high hyperparameter settings), so not many hyperparameters values were tried. However, regardless of setting, the average accuracy of the model consistently remained ~50%, which for binary classification is as good as random. We hope to test and visualize the accuracy with different hyperparameter values to see if we observe any accuracy changes for the final deliverable.
 
 #### Intuitively, how do you react to the results? Are you confident in the results?
 
-This model is testing both the model's ability to find a pattern and our hypothesis that posts/comments made within 'timeframe' hours of a fluctuation affect that fluctuation. We are not confident in our hypothesis, so we do not know whether there is even a pattern for the model to learn. We also think that we lack data for a pattern such as this one. If we could create a model that accurately predicted price fluctuations this easily on such a small dataset, many would be doing this for money and the market would become closer to perfect. Therefore, we are not confident that we can obtain results with a better model/other hyperparameters, but we will continue trying.
+- This model is testing both the model's ability to find a pattern and our hypothesis that posts/comments made within 'timeframe' hours of a fluctuation affect that fluctuation. We are not confident in our hypothesis, so we do not know whether there is even a pattern for the model to learn. We also think that we lack data for a pattern such as this one. If we could create a model that accurately predicted price fluctuations this easily on such a small dataset, many would be doing this for money and the market would become closer to perfect. Therefore, we are not confident that we can obtain results with a better model/other hyperparameters, but we will continue trying.
