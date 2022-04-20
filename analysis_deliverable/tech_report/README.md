@@ -31,7 +31,7 @@ The alternative hypothesis is that there is a significant difference between the
 #### Was the data adequate for your analysis? If not what aspects of the data was problematic and how could you have remedied that?
 - The data was adequate for our analysis. However, since the data was scraped, we may not have the entire set of data from Reddit to get an exact and accurate result. For example, we are unable to differentiate between a day with 0 posts and a day for which no data was scraped. I did check the ranges for the post/comment frequencies for each dataset, and the minimum was 6 for both meme and proper coin comments. Hence, I made the assumption that dates which did not exist in the dataset were a result of not scraping any data for those days rather than a lack of posts on those days. This issue could potentially be remedied by perhaps obtaining subreddit activity data rather than directly obtaining the posts, although this may not be particularly feasible either. Overall, due to the large sample size, our data seems adequate for our analysis. Our method of data scraping could potentially impact the calculated post frequencies, but likely not enough for it to significantly change the results we obtained in the end. 
 
-## Hypothesis Test 2
+## Hypothesis Test 3
 
 #### A defined hypothesis or prediction task, with clearly stated metrics for success.
 - *State hypothesis*: The average daily price percentage change for established cryptocurrencies differs from that of meme coins. Specifically, we predict that meme cryptocurrencies have a larger mean daily price percentage change. 
@@ -57,16 +57,12 @@ The alternative hypothesis is that the mean daily price percentage change for me
 #### Was the data adequate for your analysis? If not what aspects of the data was problematic and how could you have remedied that?
 - The data was adequate for our analysis. We had sufficient data to apply the CLT and perform a t-test on our data. However, for more interesting analyses and more data, it would be useful to have access to data over a longer period of time (our dataset is limited to a year’s worth of data from 3/1/2021 to 3/1/2022).  
 
-
+## Visualization 1: Histogram Comparison 
 ### For your visualization, why did you pick this graph? What alternative ways might you communicate the result? Were there any challenges visualizing the results, if so, what where they? Will your visualization require text to provide context or is it standalone (either is fine, but it's recognize which type your visualization is)?
+- I picked a histogram because I wanted to visualize the distribution (over a sample size of 365 days) of the average percentage change in price per day. A histogram allows me to graph the frequency of a metric, so that's why I chose this type of graph. Another way in which I could have communicated the result was a box plot, which would provide additional information about the 25th, 50th and, 75th percentiles of each of the data sets, but I thought that a histogram would be easier to interpret. For the most part, I think that the legend, axis labels, and title of the graph provide enough information to interpret the visualization.
 
 
 ### Full results + graphs (at least 1 stats/ml test and at least 1 visualization). You should push your visualizations to the /analysis_deliverable/visualizations folder in your repo. Depending on your model/test/project we would ideally like you to show us your full process so we can evaluate how you conducted the test!
-
-### If you did a statistics test, are there any confounding trends or variables you might be observing?
-
-
-### If you did a machine learning model, why did you choose this machine learning technique? Does your data have any sensitive/protected attributes that could affect your machine learning model?
 
 
 You can also attach photos from your repo
