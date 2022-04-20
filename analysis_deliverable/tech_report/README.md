@@ -61,11 +61,6 @@ The alternative hypothesis is that the mean daily price percentage change for me
 ### For your visualization, why did you pick this graph? What alternative ways might you communicate the result? Were there any challenges visualizing the results, if so, what where they? Will your visualization require text to provide context or is it standalone (either is fine, but it's recognize which type your visualization is)?
 - I picked a histogram because I wanted to visualize the distribution (over a sample size of 365 days) of the average percentage change in price per day. A histogram allows me to graph the frequency of a metric, so that's why I chose this type of graph. Another way in which I could have communicated the result was a box plot, which would provide additional information about the 25th, 50th and, 75th percentiles of each of the data sets, but I thought that a histogram would be easier to interpret. For the most part, I think that the legend, axis labels, and title of the graph provide enough information to interpret the visualization.
 
-
-### Full results + graphs (at least 1 stats/ml test and at least 1 visualization). You should push your visualizations to the /analysis_deliverable/visualizations folder in your repo. Depending on your model/test/project we would ideally like you to show us your full process so we can evaluate how you conducted the test!
-
-### If you did a statistics test, are there any confounding trends or variables you might be observing?
-
 ## ML Model
 
 The model we chose was an RNN deep learning model, which is a supervised learning algorithm. The goal of the model is to take as input comments/posts written within 'timeframe' hours before a coin fluctuation, and output the direction of the coin fluctuation that follows. Note that 'timeframe' is a pre-processing hyperparameter with a default value of 3 (hours), and its value is set at the top of the ml.py file.
