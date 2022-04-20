@@ -73,7 +73,7 @@ The alternative hypothesis is that the mean daily price percentage change for me
 
 - We began by considering sentiment analysis on the posts/comments to measure the sentiment people had about certain coins in the hours preceding a price fluctuation. However, we realized that our data wasn't labelled, and that sentiment analysis would be difficult and imprecise to complete. Furthermore, since our final goal was to use the input reddit text to predict coin price fluctuations, the prediction would be twofold and imprecise in this scenario: first, predict the reddit post/comment sentiments and then predict the price fluctuation based on that predicted sentiment.
 
-Thus, we went ahead and settled for a more direct approach which used deep learning to attempt to predict coin price fluctuations based on the input reddit posts/comments.
+- Thus, we went ahead and settled for a more direct approach which used deep learning to attempt to predict coin price fluctuations based on the input reddit posts/comments.
 
 #### How did you measure success or failure? Why that metric/value? What challenges did you face evaluating the model?
 
@@ -90,7 +90,8 @@ Thus, we went ahead and settled for a more direct approach which used deep learn
 ##### Reddit data:
 
 - The reddit data had to be cleaned and tokenized. From posts/comments, we removed links, punctuation, excess whitespace, and stopwords (which includes the crypotcurrency keywords that were used to find the posts/comments in the first place). Furthermore, we separated the emojis with whitespaces (to avoid them being considered as unique single tokens in the tokenization process), we turned everything into lowercase, and tokenized the resulting string into words.
-  Using this cleaned tokenization, we used a counter to get the frequency of each token in the overall dataset. Then, we created a dictionary that maps from a token to a unique index for the tokens that came up at least 'frequency' times. Note that 'frequency' is a pre-processing hyperparameter, which is set at the top of ml.py. THis dictionary is saved as a '.json' file in the ML folder, and can be observed for each of the datasets ('proper' and 'meme' coins). Next, we removed any duplicate tokens in each post/comment, and only kept the tokens that belonged to the dictionary we created. Finally, using the dictionary mapping, we one-hotted the input tokens as torch tensors for our RNN model.
+  
+- Using this cleaned tokenization, we used a counter to get the frequency of each token in the overall dataset. Then, we created a dictionary that maps from a token to a unique index for the tokens that came up at least 'frequency' times. Note that 'frequency' is a pre-processing hyperparameter, which is set at the top of ml.py. THis dictionary is saved as a '.json' file in the ML folder, and can be observed for each of the datasets ('proper' and 'meme' coins). Next, we removed any duplicate tokens in each post/comment, and only kept the tokens that belonged to the dictionary we created. Finally, using the dictionary mapping, we one-hotted the input tokens as torch tensors for our RNN model.
 
 ##### Cross-matching:
 
