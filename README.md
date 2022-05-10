@@ -8,13 +8,12 @@ This is the final project's master repo! Please use the following shortcut links
 
 - #### Reports ####
   - [Tech Report](data_deliverable/reports/tech_report/)
-  - [Socio-historical Context and Impact Report](data_deliverable/reports/social_impact_report)
 
 
 ## Analysis Deliverable ##
 
 - #### Reports ####
-  - [Tech Report](analysis_deliverable/tech_report/)
+  - [Tech Report](analysis_deliverable/tech_report)
 
 - #### Visualizations ####
   - [Visualizations](analysis_deliverable/visualizations)
@@ -22,19 +21,21 @@ This is the final project's master repo! Please use the following shortcut links
 
 ## Final Deliverable ##
 
-- ### Poster ###
-[Poster](final_deliverable/poster/poster.pdf)
+### Poster ###
+  - [Poster](final_deliverable/poster/poster.pdf)
 
-- ### Code ###
-  - [Code](final_deliverable/code/)<br/>
-  - ([Capstone App Demo]()
+### Code ###
+  - [Code README](final_deliverable/code/)
 
-- ### Abstract ###
-  - [Abstract]()
+### Abstract ###
+  - [Abstract](final_deliverable/deliverables/abstract.pdf)
 
-- ### Final Presentation ###
-  - [recording]()
-  - [slides]()
+### Final Presentation ###
+- [recording]()
+- [slides](final_deliverable/deliverables/presentation_slides.pdf)
 
-- ### Visualizations ###
+### Visualizations ###
   - [Visualizations](final_deliverable/visualizations)
+
+### Report ###
+  - [Report](final_deliverable/deliverables/report.pdf)
