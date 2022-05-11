@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.optim as optim
 from torch.nn import RNN
 from os import path
 from sklearn.model_selection import KFold
@@ -23,12 +24,6 @@ FREQUENCY = 5
 # Maximum number of hours a post takes to affect price
 TIMEFRAME = 3
 
-# Define ML hyperparameters ------
-LEARNING_RATE = 0.01
-# Number of split for k-fold validation
-N_SPLITS = 4
-# Hidden size of RNN model
-HIDDEN_SIZE = 128
 
 '''
 Note that the general RNN architecture was taken from:
@@ -46,11 +41,11 @@ class RNN(nn.Module):
         self.i2o = nn.Linear(input_size + hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=1)
 
-        self.criterion =  nn.NLLLoss() # Negative Log Likelihood Loss
+        self.criterion = nn.NLLLoss() # Negative Log Likelihood Loss
 
     def forward(self, input, hidden):
         combined = torch.cat((input, hidden), 1)
-        hidden = self.i2h(combined)
+        hidden = torch.sigmoid(self.i2h(combined))
         output = self.i2o(combined)
         output = self.softmax(output)
         return output, hidden
@@ -74,9 +69,9 @@ def prediction(output):
 
     return: (int) label -> 0 or 1
     '''
-    return output.topk(1)[1][0].item()
+    return (output).topk(1)[1].item()
 
-def run(X, Y, num_splits, hidden_size):
+def run(X, Y, hidden_size, num_splits, learning_rate):
     '''
     Runs model on the input data k times with k-fold cross validation.
 
@@ -96,7 +91,7 @@ def run(X, Y, num_splits, hidden_size):
     for train_indices, test_indices in kf.split(X):
         count += 1
         # Create model
-        model = RNN(vocab_size, hidden_size, 2, LEARNING_RATE)
+        model = RNN(vocab_size, hidden_size, 2, learning_rate)
         print('——————————————————————————————————————————————————————————')
         print(f'Training split {count} of {num_splits} of size {len(train_indices)}.')
         # Train
@@ -122,18 +117,18 @@ def train_split(X, Y, model):
     Y: Input labels
     model: Input RNN model to train
     '''
+    optimizer = optim.Adam(model.parameters(), lr=model.learning_rate)
     for i in range(len(X)):
-        hidden = model.initHidden()
-        model.zero_grad()
         if i % 1000 == 0:
             print(f'Model has trained on {i} examples.')
+        hidden = model.initHidden()
+        optimizer.zero_grad()
         for j in range(X[i].size(dim=0)):
             output, hidden = model(X[i][j], hidden)
         loss = model.criterion(output, Y[i])
         loss.backward()
         # Modify parameters based on backprop gradients
-        for p in model.parameters():
-            p.data.add_(p.grad.data, alpha=-model.learning_rate)
+        optimizer.step()
 
 def test_split(X, Y, model):
     '''
@@ -162,19 +157,42 @@ def main():
     print('\n\nCreating data for RNN model.')
     proper_X, proper_Y, meme_X, meme_Y = get_data()
     print('——————————————————————————————————————————————————————————')
-    # Train on proper coin data
-    print('Begin training on proper coin dataset.')
-    proper_acc = run(proper_X, proper_Y, HIDDEN_SIZE, N_SPLITS)
-    print('Done training on proper coin dataset!\n\n')
-    print('——————————————————————————————————————————————————————————')
-    # Train on meme coin data
-    print('Begin training on meme coin dataset.')
-    meme_acc = run(meme_X, meme_Y, HIDDEN_SIZE, N_SPLITS)
-    print('Done training on meme coin dataset!\n\n')
-    print('——————————————————————————————————————————————————————————')
-    print('The model obtained the following training accuracies:\n')
-    print(f'Proper coin dataset accuracy = {proper_acc}')
-    print(f'Proper coin dataset accuracy = {meme_acc}')
+    # Test different learning rate parameters
+    hidden_size = 128
+    num_splits = 4
+    # learning_rate = 0.01
+    # TESTING: Optimal learning rate
+    for i in range(6):
+        learning_rate = 10 ** (-i)
+        # Train on proper coin data
+        print(f'Begin training on proper coin dataset for learning rate {learning_rate}.')
+        proper_acc = run(proper_X, proper_Y, hidden_size, num_splits, learning_rate)
+        print('Done training on proper coin dataset!\n\n')
+        print('——————————————————————————————————————————————————————————')
+        # Train on meme coin data
+        print('Begin training on meme coin dataset.')
+        meme_acc = run(meme_X, meme_Y, hidden_size, num_splits, learning_rate)
+        print('Done training on meme coin dataset!\n\n')
+        print('——————————————————————————————————————————————————————————')
+        print('The model obtained the following training accuracies:\n')
+        print(f'Proper coin dataset accuracy for learning rate {learning_rate} = {proper_acc}')
+        print(f'Proper coin dataset accuracy for learning rate {learning_rate} = {meme_acc}')
+
+    # print('Begin training on proper coin dataset.')
+    # proper_acc = run(proper_X, proper_Y, hidden_size, num_splits, learning_rate)
+    # print('Done training on proper coin dataset!\n\n')
+    # print('——————————————————————————————————————————————————————————')
+    # # Train on meme coin data
+    # print('Begin training on meme coin dataset.')
+    # meme_acc = run(meme_X, meme_Y, hidden_size, num_splits, learning_rate)
+    # print('Done training on meme coin dataset!\n\n')
+    # print('——————————————————————————————————————————————————————————')
+    # print('The model obtained the following training accuracies:\n')
+    # print(f'Proper coin dataset accuracy = {proper_acc}')
+    # print(f'Proper coin dataset accuracy = {meme_acc}')
 
 if __name__ == '__main__':
+    for i in range(5):
+        with open("learning_rate_accuracies.txt", "a") as file:
+            file.write(str(i) + ', '+ str(0.98765345678))
     main()
