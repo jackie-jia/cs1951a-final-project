@@ -31,7 +31,7 @@ This is the final project's master repo! Please use the following shortcut links
   - [Abstract](final_deliverable/deliverables/abstract.pdf)
 
 ### Final Presentation ###
-- [recording]()
+- [recording](https://drive.google.com/file/d/1Qoq6PAvEIOzS3XQp_L7BdAIYmKX9kUKl/view?usp=sharing)
 - [slides](final_deliverable/deliverables/presentation_slides.pdf)
 
 ### Visualizations ###
