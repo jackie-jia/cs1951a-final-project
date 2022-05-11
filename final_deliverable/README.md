@@ -11,7 +11,7 @@ This is the final deliverable's master directory! Please use the following short
 [Abstract](deliverables/abstract.pdf)
 
 ### Final Presentation ###
-- [recording]()
+- [recording](https://drive.google.com/file/d/1Qoq6PAvEIOzS3XQp_L7BdAIYmKX9kUKl/view?usp=sharing)
 - [slides](deliverables/presentation_slides.pdf)
 
 ### Visualizations ###
