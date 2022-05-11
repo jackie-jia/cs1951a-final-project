@@ -1,2 +1,3 @@
 # Poster
-This is where your final project poster will go.
+
+This folder contains the final poster!

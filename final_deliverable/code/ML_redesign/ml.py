@@ -164,7 +164,8 @@ def test_frequency():
     print(f'\n\nTesting minimum frequency settings to find optimal setting.\n\n')
     # Default hyperparameter settings for testing:
     hidden_size = 128
-    learning_rate = 0.01
+    prop_learning_rate = 0.01
+    meme_learning_rate = 0.00001
     # Storage for raw accuracies:
     if path.isfile(ROOT_DIR + "/testing_files/frequency_testing.txt"):
         os.remove(ROOT_DIR + "/testing_files/frequency_testing.txt")
@@ -180,11 +181,11 @@ def test_frequency():
         proper_X, proper_Y, meme_X, meme_Y = get_data(frequency)
         # Train on proper coin data
         print(f'Beginning training on proper coin dataset for frequency {frequency}.')
-        proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, learning_rate)
+        proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, prop_learning_rate)
         print('Done training on proper coin dataset!\n')
         # Train on meme coin data
         print(f'Beginning training on meme coin dataset for frequency {frequency}.')
-        meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, learning_rate)
+        meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, meme_learning_rate)
         prop_accuracies.append(proper_acc)
         meme_accuracies.append(meme_acc)
         print('Done training on meme coin dataset!\n')
@@ -289,7 +290,8 @@ def test_hidden_size(proper_X, proper_Y, meme_X, meme_Y):
     '''
     print(f'\n\nTesting hidden size hyperparameter values to find optimal setting.\n\n')
     # Default hyperparameter settings for testing:
-    learning_rate = 0.01
+    prop_learning_rate = 0.01
+    meme_learning_rate = 0.00001
     # Storage for raw accuracies:
     if path.isfile(ROOT_DIR + "/testing_files/hidden_size_testing.txt"):
         os.remove(ROOT_DIR + "/testing_files/hidden_size_testing.txt")
@@ -302,11 +304,11 @@ def test_hidden_size(proper_X, proper_Y, meme_X, meme_Y):
         # Train on proper coin data
         print('——————————————————————————————————————————————————————————')
         print(f'Begin training on proper coin dataset for hidden size {hidden_size}.')
-        proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, learning_rate)
+        proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, prop_learning_rate)
         print(f'Done training on proper coin dataset for hidden size {hidden_size}!\n')
         # Train on meme coin data
         print('Begin training on meme coin dataset.')
-        meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, learning_rate)
+        meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, meme_learning_rate)
         prop_accuracies.append(proper_acc)
         meme_accuracies.append(meme_acc)
         print(f'Done training on meme coin dataset for hidden size {hidden_size}!\n')
@@ -348,36 +350,34 @@ def main():
     '''
     # Retrieves the proper and meme datasets, then trains the model on them and finds the average k-fold accuracy.
     # '''
-    frequency = 5
+    frequency = 30
     # Change TESTING value at top of file to run testing
     if TESTING:
-        test_frequency()
+        # test_frequency()
         print('\n\nCreating data for RNN model.')
         proper_X, proper_Y, meme_X, meme_Y = get_data(frequency)
         print('——————————————————————————————————————————————————————————')
-        test_learning_rate(proper_X, proper_Y, meme_X, meme_Y)
+        # test_learning_rate(proper_X, proper_Y, meme_X, meme_Y)
         test_hidden_size(proper_X, proper_Y, meme_X, meme_Y)
-
-
-    # # Run with best hyperparameters
-    # print('\n\nCreating data for RNN model.')
-    # proper_X, proper_Y, meme_X, meme_Y = get_data(frequency)
-    # print('——————————————————————————————————————————————————————————')
-    # # Optimal hyperparameter settings:
-    # hidden_size = 128
-    # learning_rate = 0.01
-    # print('Begin training on proper coin dataset.')
-    # proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, learning_rate)
-    # print('Done training on proper coin dataset!\n\n')
-    # print('——————————————————————————————————————————————————————————')
-    # # Train on meme coin data
-    # print('Begin training on meme coin dataset.')
-    # meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, learning_rate)
-    # print('Done training on meme coin dataset!\n\n')
-    # print('——————————————————————————————————————————————————————————')
-    # print('The model obtained the following training accuracies:\n')
-    # print(f'Proper coin dataset accuracy = {proper_acc}')
-    # print(f'Proper coin dataset accuracy = {meme_acc}')
+    else:
+        print('\n\nCreating data for RNN model.')
+        proper_X, proper_Y, meme_X, meme_Y = get_data(frequency)
+        print('——————————————————————————————————————————————————————————')
+        # Optimal hyperparameter settings:
+        hidden_size = 128
+        learning_rate = 0.01
+        print('Begin training on proper coin dataset.')
+        proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, learning_rate)
+        print('Done training on proper coin dataset!\n\n')
+        print('——————————————————————————————————————————————————————————')
+        # Train on meme coin data
+        print('Begin training on meme coin dataset.')
+        meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, learning_rate)
+        print('Done training on meme coin dataset!\n\n')
+        print('——————————————————————————————————————————————————————————')
+        print('The model obtained the following training accuracies:\n')
+        print(f'Proper coin dataset accuracy = {proper_acc}')
+        print(f'Proper coin dataset accuracy = {meme_acc}')
 
 
 if __name__ == '__main__':
