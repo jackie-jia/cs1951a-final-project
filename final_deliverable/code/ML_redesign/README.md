@@ -56,6 +56,6 @@ The hyperparameters are set at the top of the ml.py file and are as follows.
 - CONSTANT 'n_splits': (int) Number of splits for the k-fold cross validation, a.k.a. the variable 'k' in 'k-fold'. Default set to 4.
 - TESTED 'hidden_size': (int) Number of parameters in hidden linear layer of RNN model.
 
-## Credits
+## Acknowledgements
 
 The RNN learning architecture in ml.py was inspired by [this](https://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html) publicly avaiable model on pytorch.org.

@@ -8,9 +8,10 @@ from sklearn.model_selection import KFold
 from preprocess import create_input_data
 import json
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Set boolean for whether testing should take place
-TESTING = True
+TESTING = False
 
 '''
 This file creates the RNN model, calls for pre-processing, and trains the model on the input data using
@@ -123,7 +124,7 @@ def train_split(X, Y, model):
     model: Input RNN model to train
     '''
     optimizer = optim.Adam(model.parameters(), lr=model.learning_rate)
-    for i in range(len(X)):
+    for i in range(5):
         if i % 1000 == 0:
             print(f'Model has trained on {i} examples.')
         hidden = model.initHidden()
@@ -209,16 +210,21 @@ def test_frequency():
     with open(ROOT_DIR + "/testing_files/frequency_meme_acc.json", "w") as f:
         json.dump(meme_accuracies, f)
     # Plot the results
+    width = 0.35
+    x_loc = np.arange(len(frequencies))
     fig, ax = plt.subplots()
-    plt.xlim([5, 30])
+    rects1 = ax.bar(x_loc - width/2, prop_accuracies, width, label='Proper coin accuracy', color='midnightblue')
+    rects2 = ax.bar(x_loc + width/2, meme_accuracies, width, label='Meme coin accuracy', color='paleturquoise')
+    # Add some text for labels, title and custom x-axis tick labels, etc.
     plt.ylim([0, 1])
-    ax.plot(frequencies, prop_accuracies, "orange", label='Proper coin accuracy')
-    ax.plot(frequencies, meme_accuracies, "blue", label='Meme coin accuracy')
-    # setting labels
     ax.set_xlabel("Frequency")
     ax.set_ylabel("K-Fold Accuracy")
     ax.set_title("K-Fold Accuracy by Minimum Frequency in Vocabulary")
-    plt.legend()
+    ax.set_xticks(x_loc, frequencies)
+    ax.legend(loc="upper right")
+    ax.bar_label(rects1, padding=3, fontsize=8)
+    ax.bar_label(rects2, padding=3, fontsize=8)
+    fig.tight_layout()
     plt.savefig(ROOT_DIR + "/../../visualizations/frequency_testing_graph.png")
     plt.show()
 
@@ -270,16 +276,21 @@ def test_learning_rate(proper_X, proper_Y, meme_X, meme_Y):
     with open(ROOT_DIR + "/testing_files/learning_rate_meme_acc.json", "w") as f:
         json.dump(meme_accuracies, f)
     # Plot the results
+    width = 0.35
+    x_loc = np.arange(len(learning_rates))
     fig, ax = plt.subplots()
-    plt.xlim([-5, 0])
+    rects1 = ax.bar(x_loc - width/2, prop_accuracies, width, label='Proper coin accuracy', color='midnightblue')
+    rects2 = ax.bar(x_loc + width/2, meme_accuracies, width, label='Meme coin accuracy', color='paleturquoise')
+    # Add some text for labels, title and custom x-axis tick labels, etc.
     plt.ylim([0, 1])
-    ax.plot(learning_rates, prop_accuracies, "orange", label='Proper coin accuracy')
-    ax.plot(learning_rates, meme_accuracies, "blue", label='Meme coin accuracy')
-    # setting labels
     ax.set_xlabel("Learning Rate (log unit)")
     ax.set_ylabel("K-Fold Accuracy")
     ax.set_title("K-Fold Accuracy by Learning Rate")
-    plt.legend()
+    ax.set_xticks(x_loc, learning_rates)
+    ax.legend(loc="upper right")
+    ax.bar_label(rects1, padding=3, fontsize=8)
+    ax.bar_label(rects2, padding=3, fontsize=8)
+    fig.tight_layout()
     plt.savefig(ROOT_DIR + "/../../visualizations/learning_rate_testing_graph.png")
     plt.show()
 
@@ -317,7 +328,7 @@ def test_hidden_size(proper_X, proper_Y, meme_X, meme_Y):
         print(f'Meme coin dataset accuracy for hidden size {hidden_size} is {meme_acc}')
         print('——————————————————————————————————————————————————————————')
         with open(ROOT_DIR + "/testing_files/hidden_size_testing.txt", "a") as file:
-            file.write(str(10 ** (-i)) + ', ' + str(proper_acc) + ', ' + str(meme_acc) + '\n')
+            file.write(str(2 ** i) + ', ' + str(proper_acc) + ', ' + str(meme_acc) + '\n')
     # Dump accuracy data into json for safety due to high training times
     if path.isfile(ROOT_DIR + "/testing_files/hidden_sizes.json"):
         os.remove(ROOT_DIR + "/testing_files/hidden_sizes.json")
@@ -332,47 +343,55 @@ def test_hidden_size(proper_X, proper_Y, meme_X, meme_Y):
     with open(ROOT_DIR + "/testing_files/hidden_size_meme_acc.json", "w") as f:
         json.dump(meme_accuracies, f)
     # Plot the results
+    width = 0.35
+    x_loc = np.arange(len(hidden_sizes))
     fig, ax = plt.subplots()
-    plt.xlim([6, 10])
+    rects1 = ax.bar(x_loc - width/2, prop_accuracies, width, label='Proper coin accuracy', color='midnightblue')
+    rects2 = ax.bar(x_loc + width/2, meme_accuracies, width, label='Meme coin accuracy', color='paleturquoise')
+    # Add some text for labels, title and custom x-axis tick labels, etc.
     plt.ylim([0, 1])
-    ax.plot(hidden_sizes, prop_accuracies, "orange", label='Proper coin accuracy')
-    ax.plot(hidden_sizes, meme_accuracies, "blue", label='Meme coin accuracy')
-    # setting labels
     ax.set_xlabel("Hidden Size (log_2 unit)")
     ax.set_ylabel("K-Fold Accuracy")
     ax.set_title("K-Fold Accuracy by RNN Hidden Layer Size")
-    plt.legend()
+    ax.set_xticks(x_loc, hidden_sizes)
+    ax.legend(loc="upper right")
+    ax.bar_label(rects1, padding=3, fontsize=8)
+    ax.bar_label(rects2, padding=3, fontsize=8)
+    fig.tight_layout()
     plt.savefig(ROOT_DIR + "/../../visualizations/hidden_size_testing_graph.png")
     plt.show()
 
 
 def main():
     '''
-    # Retrieves the proper and meme datasets, then trains the model on them and finds the average k-fold accuracy.
-    # '''
-    frequency = 30
+    Retrieves the proper and meme datasets, then trains the model on them and finds the average k-fold accuracy.
+    '''
     # Change TESTING value at top of file to run testing
+    frequency = 30
     if TESTING:
-        # test_frequency()
+        test_frequency()
         print('\n\nCreating data for RNN model.')
         proper_X, proper_Y, meme_X, meme_Y = get_data(frequency)
         print('——————————————————————————————————————————————————————————')
-        # test_learning_rate(proper_X, proper_Y, meme_X, meme_Y)
+        test_learning_rate(proper_X, proper_Y, meme_X, meme_Y)
         test_hidden_size(proper_X, proper_Y, meme_X, meme_Y)
     else:
         print('\n\nCreating data for RNN model.')
         proper_X, proper_Y, meme_X, meme_Y = get_data(frequency)
         print('——————————————————————————————————————————————————————————')
         # Optimal hyperparameter settings:
-        hidden_size = 128
-        learning_rate = 0.01
+        prop_hidden_size = 2 ** 8
+        prop_learning_rate = 0.1
         print('Begin training on proper coin dataset.')
-        proper_acc = run(proper_X, proper_Y, hidden_size, NUM_SPLITS, learning_rate)
+        proper_acc = run(proper_X, proper_Y, prop_hidden_size, NUM_SPLITS, prop_learning_rate)
         print('Done training on proper coin dataset!\n\n')
         print('——————————————————————————————————————————————————————————')
         # Train on meme coin data
+        # Optimal hyperparameter settings:
+        meme_hidden_size = 2 ** 9
+        meme_learning_rate = 0.00001
         print('Begin training on meme coin dataset.')
-        meme_acc = run(meme_X, meme_Y, hidden_size, NUM_SPLITS, learning_rate)
+        meme_acc = run(meme_X, meme_Y, meme_hidden_size, NUM_SPLITS, meme_learning_rate)
         print('Done training on meme coin dataset!\n\n')
         print('——————————————————————————————————————————————————————————')
         print('The model obtained the following training accuracies:\n')
