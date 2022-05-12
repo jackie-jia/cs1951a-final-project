@@ -114,11 +114,11 @@ if __name__ == "__main__":
     # print(df)
 
     # Data Visualization
-    # proper_list_df = pd.DataFrame(proper_binary_list, columns=['isFinance'])
-    # proper_count_table = get_value_counts_table(proper_list_df, "isFinance")
-    # proper_count_table["count"].plot(kind='pie', labels=proper_count_table["count"], startangle=90, autopct='%1.1f%%', title='Num Posts With Financial Terms (Proper Coins)')
-    # print(proper_count_table)
-    # plt.savefig("Proper.png")
+    proper_list_df = pd.DataFrame(proper_binary_list, columns=['isFinance'])
+    proper_count_table = get_value_counts_table(proper_list_df, "isFinance")
+    proper_count_table["count"].plot(kind='pie', labels=proper_count_table["count"], startangle=90, autopct='%1.1f%%', title='Num Posts With Financial Terms (Proper Coins)')
+    print(proper_count_table)
+    plt.savefig("Proper.png")
 
     meme_list_df = pd.DataFrame(meme_binary_list, columns=['isFinance'])
     meme_count_table = get_value_counts_table(meme_list_df, "isFinance")
