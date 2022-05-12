@@ -2,7 +2,7 @@
 
 ## ML Model
 
-The model we chose was an Reccurent Neural Network (RNN) deep learning model, which is a supervised learning algorithm. The recurrent structure of the model allows us to learn patterns in sequences of words (reddit posts/comments) as opposed to simple word inputs. The goal is to create a prediction model that takes as input comments/posts written within the 3 hours before a coin fluctuation and outputs the direction of the coin fluctuation. In essence, the model is testing the following hypothesis:
+The model we chose was an Recurrent Neural Network (RNN) deep learning model, which is a supervised learning algorithm. The recurrent structure of the model allows us to learn patterns in sequences of words (reddit posts/comments) as opposed to simple word inputs. The goal is to create a prediction model that takes as input comments/posts written within the 3 hours before a coin fluctuation and outputs the direction of the coin fluctuation. In essence, the model is testing the following hypothesis:
 - "The reddit posts/comments on popular cryptocurrency reddit pages made within three hours of a coin fluctuation are correlated to the direction of the coin's fluctuation."
 
 However, this is assuming that the pattern is learnable by our RNN. Thus, our model is also testing whether the correlation (if it exists) is learnable with an RNN.
