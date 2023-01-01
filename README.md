@@ -1,5 +1,5 @@
 # Final Project
-This is the final project's master repo! Please use the following shortcut links to access the different components of the project.
+This is the final project's master repo! In this project, we scraped historical cryptocurrency data and comment and post data from a crypto subreddit for hypothesis testing and training a machine learning model. Please use the following shortcut links to access the different components of the project.
 
 ## Data Deliverable ##
 
